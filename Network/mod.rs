@@ -12378,9 +12378,7 @@ impl NWWsResponse {
         }
         unsafe { nw_ws_response_get_selected_subprotocol(self) }
     }
-}
 
-extern "C-unwind" {
     /// Add additional HTTP headers to be sent back to the WebSocket client in
     /// the server's response.
     ///
@@ -12397,11 +12395,18 @@ extern "C-unwind" {
     ///
     /// - `name` must be a valid pointer.
     /// - `value` must be a valid pointer.
-    pub fn nw_ws_response_add_additional_header(
-        response: &NWWsResponse,
-        name: NonNull<c_char>,
-        value: NonNull<c_char>,
-    );
+    #[doc(alias = "nw_ws_response_add_additional_header")]
+    #[inline]
+    pub unsafe fn add_additional_header(&self, name: NonNull<c_char>, value: NonNull<c_char>) {
+        extern "C-unwind" {
+            fn nw_ws_response_add_additional_header(
+                response: &NWWsResponse,
+                name: NonNull<c_char>,
+                value: NonNull<c_char>,
+            );
+        }
+        unsafe { nw_ws_response_add_additional_header(self, name, value) }
+    }
 }
 
 impl NWProtocolMetadata {
