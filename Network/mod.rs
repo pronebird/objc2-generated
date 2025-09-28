@@ -166,9 +166,7 @@ impl NWTxtRecord {
         let ret = unsafe { nw_txt_record_copy(self) };
         ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
     }
-}
 
-impl nw_txt_record_find_key_t {
     /// Find a key-value pair in the TXT record object.
     ///
     ///
@@ -187,14 +185,14 @@ impl nw_txt_record_find_key_t {
     /// `key` must be a valid pointer.
     #[doc(alias = "nw_txt_record_find_key")]
     #[inline]
-    pub unsafe fn new(txt_record: &NWTxtRecord, key: NonNull<c_char>) -> nw_txt_record_find_key_t {
+    pub unsafe fn find_key(&self, key: NonNull<c_char>) -> nw_txt_record_find_key_t {
         extern "C-unwind" {
             fn nw_txt_record_find_key(
                 txt_record: &NWTxtRecord,
                 key: NonNull<c_char>,
             ) -> nw_txt_record_find_key_t;
         }
-        unsafe { nw_txt_record_find_key(txt_record, key) }
+        unsafe { nw_txt_record_find_key(self, key) }
     }
 }
 
@@ -12386,7 +12384,7 @@ pub extern "C-unwind" fn nw_txt_record_copy(&self) -> Option<NWRetained<NWTxtRec
 }
 
 extern "C-unwind" {
-    #[deprecated = "renamed to `nw_txt_record_find_key_t::new`"]
+    #[deprecated = "renamed to `NWTxtRecord::find_key`"]
     pub fn nw_txt_record_find_key(
         txt_record: &NWTxtRecord,
         key: NonNull<c_char>,
