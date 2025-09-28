@@ -26,7 +26,9 @@ mod __FoundationExtension;
 
 #[cfg(all(feature = "FoundationExtension", feature = "objc2"))]
 pub use self::__FoundationExtension::NSURLSessionConfigurationNetwork;
+use core::cell::UnsafeCell;
 use core::ffi::*;
+use core::marker::{PhantomData, PhantomPinned};
 use core::ptr::NonNull;
 use dispatch2::*;
 #[cfg(feature = "objc2")]
@@ -57,9 +59,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_txt_record: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_txt_record_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_txt_record_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwtxtrecord?language=objc)
+    pub struct NWTxtRecord;
+);
 
 /// An enumeration of possible find results when trying to find a key-value
 /// pair in the TXT record object.
@@ -502,9 +505,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_advertise_descriptor: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_advertise_descriptor_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_advertise_descriptor_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwadvertisedescriptor?language=objc)
+    pub struct NWAdvertiseDescriptor;
+);
 
 impl NWAdvertiseDescriptor {
     /// Creates a new advertise descriptor object based on a Bonjour service type
@@ -715,9 +719,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_protocol_definition: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_protocol_definition_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_protocol_definition_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwprotocoldefinition?language=objc)
+    pub struct NWProtocolDefinition;
+);
 
 impl NWProtocolDefinition {
     /// Compare two protocol definitions to check if they represent the same protocol.
@@ -750,9 +755,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_protocol_options: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_protocol_options_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_protocol_options_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwprotocoloptions?language=objc)
+    pub struct NWProtocolOptions;
+);
 
 impl NWProtocolOptions {
     /// Retrieve the protocol definition for a given options object.
@@ -784,9 +790,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_protocol_metadata: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_protocol_metadata_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_protocol_metadata_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwprotocolmetadata?language=objc)
+    pub struct NWProtocolMetadata;
+);
 
 impl NWProtocolMetadata {
     /// Retrieve the protocol definition for a given metadata object.
@@ -818,9 +825,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_interface: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_interface_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_interface_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwinterface?language=objc)
+    pub struct NWInterface;
+);
 
 /// Interface types represent the underlying media for a network link, such as Wi-Fi or
 /// Cellular.
@@ -970,9 +978,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_endpoint: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_endpoint_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_endpoint_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwendpoint?language=objc)
+    pub struct NWEndpoint;
+);
 
 /// Endpoint types represent a well-known form of endpoint. Values may be
 /// added to this enumeration, and some custom endpoint types may use
@@ -1401,9 +1410,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_resolver_config: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_resolver_config_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_resolver_config_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwresolverconfig?language=objc)
+    pub struct NWResolverConfig;
+);
 
 impl NWResolverConfig {
     /// Creates a DNS-over-HTTPS (DoH) resolver configuration. The provided
@@ -1479,9 +1489,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_proxy_config: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_proxy_config_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_proxy_config_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwproxyconfig?language=objc)
+    pub struct NWProxyConfig;
+);
 
 #[cfg(feature = "objc2")]
 extern_protocol!(
@@ -1490,9 +1501,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_relay_hop: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_relay_hop_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_relay_hop_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwrelayhop?language=objc)
+    pub struct NWRelayHop;
+);
 
 impl NWRelayHop {
     /// Creates a configuration for a secure relay. A relay is a proxy that is accessible using
@@ -1904,9 +1916,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_privacy_context: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_privacy_context_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_privacy_context_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwprivacycontext?language=objc)
+    pub struct NWPrivacyContext;
+);
 
 impl NWPrivacyContext {
     /// Create a new privacy context. This object can be added to connections and listeners
@@ -2058,9 +2071,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_parameters: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_parameters_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_parameters_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwparameters?language=objc)
+    pub struct NWParameters;
+);
 
 #[cfg(feature = "objc2")]
 extern_protocol!(
@@ -2069,9 +2083,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_protocol_stack: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_protocol_stack_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_protocol_stack_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwprotocolstack?language=objc)
+    pub struct NWProtocolStack;
+);
 
 /// [Apple's documentation](https://developer.apple.com/documentation/network/nw_parameters_configure_protocol_block_t?language=objc)
 pub type nw_parameters_configure_protocol_block_t =
@@ -3413,9 +3428,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_browse_descriptor: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_browse_descriptor_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_browse_descriptor_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwbrowsedescriptor?language=objc)
+    pub struct NWBrowseDescriptor;
+);
 
 impl NWBrowseDescriptor {
     /// Creates a new browse descriptor object on a Bonjour service type and
@@ -3586,9 +3602,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_browse_result: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_browse_result_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_browse_result_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwbrowseresult?language=objc)
+    pub struct NWBrowseResult;
+);
 
 /// A nw_browse_result_change_t describes all changes that occurred between
 /// two browse results. Call nw_browse_result_get_changes() to get the
@@ -3743,9 +3760,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_error: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_error_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_error_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwerror?language=objc)
+    pub struct NWError;
+);
 
 /// The enumeration of network error domains.
 ///
@@ -3871,9 +3889,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_browser: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_browser_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_browser_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwbrowser?language=objc)
+    pub struct NWBrowser;
+);
 
 /// Browser states sent by nw_browser_set_state_changed_handler.
 ///
@@ -4143,9 +4162,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_path: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_path_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_path_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwpath?language=objc)
+    pub struct NWPath;
+);
 
 /// A network path status indicates if there is a usable route available upon which to
 /// send and receive data.
@@ -4556,9 +4576,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_content_context: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_content_context_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_content_context_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwcontentcontext?language=objc)
+    pub struct NWContentContext;
+);
 
 impl NWContentContext {
     /// Create a context object to represent properties associated with
@@ -4823,9 +4844,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_connection: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_connection_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_connection_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwconnection?language=objc)
+    pub struct NWConnection;
+);
 
 /// Connection states sent by nw_connection_set_state_changed_handler.
 /// States generally progress forward and do not move backwards, with the
@@ -5548,9 +5570,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_group_descriptor: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_group_descriptor_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_group_descriptor_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwgroupdescriptor?language=objc)
+    pub struct NWGroupDescriptor;
+);
 
 impl NWGroupDescriptor {
     /// Creates a new group descriptor object based on an endpoint
@@ -5742,9 +5765,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_connection_group: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_connection_group_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_connection_group_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwconnectiongroup?language=objc)
+    pub struct NWConnectionGroup;
+);
 
 /// Connection Group states sent by nw_connection_group_set_state_changed_handler.
 /// States progress forward and do not move backwards.
@@ -6444,9 +6468,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_establishment_report: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_establishment_report_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_establishment_report_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwestablishmentreport?language=objc)
+    pub struct NWEstablishmentReport;
+);
 
 /// [Apple's documentation](https://developer.apple.com/documentation/network/nw_establishment_report_access_block_t?language=objc)
 pub type nw_establishment_report_access_block_t =
@@ -6620,9 +6645,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_resolution_report: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_resolution_report_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_resolution_report_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwresolutionreport?language=objc)
+    pub struct NWResolutionReport;
+);
 
 /// The source of a resolution indicates if the set of endpoints was resolved
 /// locally using a cache, or sent a query over the network.
@@ -6932,9 +6958,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_data_transfer_report: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_data_transfer_report_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_data_transfer_report_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwdatatransferreport?language=objc)
+    pub struct NWDataTransferReport;
+);
 
 impl NWConnection {
     /// Create a new data transfer report on a connection. Multiple
@@ -7493,6 +7520,18 @@ impl NWDataTransferReport {
     }
 }
 
+#[cfg(feature = "objc2")]
+extern_protocol!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/os_nw_ethernet_channel?language=objc)
+    #[cfg(feature = "objc2")]
+    pub unsafe trait OS_nw_ethernet_channel: NSObjectProtocol {}
+);
+
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwethernetchannel?language=objc)
+    pub struct NWEthernetChannel;
+);
+
 /// Channel states sent by nw_ethernet_channel_set_state_changed_handler.
 /// States generally progress forward and do not move backwards, with the
 /// exception of preparing and waiting, which may alternate before the channel
@@ -7852,9 +7891,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_framer: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_framer_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_framer_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwframer?language=objc)
+    pub struct NWFramer;
+);
 
 /// A framer message is an instance of protocol metadata associated
 /// with the definition of a framer, created by nw_framer_create_definition().
@@ -7863,30 +7903,34 @@ pub type nw_framer_t = NSObject;
 #[doc(alias = "nw_framer_message_t")]
 pub type NWFramerMessage = NWProtocolMetadata;
 
-/// Create an instance of a framer message on which per-
-/// message options can be configured when sending data
-/// on a connection. This is intended to be used by the
-/// application above the connection to send message data
-/// down to the framer protocol instance.
-///
-///
-/// Parameter `definition`: The framer protocol definition, as retrieved from
-/// nw_protocol_options_copy_definition() on the framer options.
-///
-///
-/// Returns: Returns a retained protocol metadata object.
-#[inline]
-pub extern "C-unwind" fn nw_framer_protocol_create_message(
-    definition: &NWProtocolDefinition,
-) -> NWRetained<NWFramerMessage> {
-    extern "C-unwind" {
-        fn nw_framer_protocol_create_message(
-            definition: &NWProtocolDefinition,
-        ) -> Option<NonNull<NWFramerMessage>>;
+impl NWFramer {
+    /// Create an instance of a framer message on which per-
+    /// message options can be configured when sending data
+    /// on a connection. This is intended to be used by the
+    /// application above the connection to send message data
+    /// down to the framer protocol instance.
+    ///
+    ///
+    /// Parameter `definition`: The framer protocol definition, as retrieved from
+    /// nw_protocol_options_copy_definition() on the framer options.
+    ///
+    ///
+    /// Returns: Returns a retained protocol metadata object.
+    #[doc(alias = "nw_framer_protocol_create_message")]
+    #[inline]
+    pub fn protocol_create_message(
+        definition: &NWProtocolDefinition,
+    ) -> NWRetained<NWFramerMessage> {
+        extern "C-unwind" {
+            fn nw_framer_protocol_create_message(
+                definition: &NWProtocolDefinition,
+            ) -> Option<NonNull<NWFramerMessage>>;
+        }
+        let ret = unsafe { nw_framer_protocol_create_message(definition) };
+        let ret =
+            ret.expect("function was marked as returning non-null, but actually returned NULL");
+        unsafe { NWRetained::from_raw(ret) }
     }
-    let ret = unsafe { nw_framer_protocol_create_message(definition) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
 }
 
 impl NWProtocolMetadata {
@@ -7943,7 +7987,7 @@ impl NWFramer {
 /// See also [Apple's documentation](https://developer.apple.com/documentation/network/nw_framer_message_dispose_value_t?language=objc)
 pub type nw_framer_message_dispose_value_t = *mut block2::DynBlock<dyn Fn(NonNull<c_void>)>;
 
-extern "C-unwind" {
+impl NWFramer {
     /// Set a key-value pair on a framer message, with a custom
     /// dispose function for the value.
     ///
@@ -7964,15 +8008,25 @@ extern "C-unwind" {
     /// - `key` must be a valid pointer.
     /// - `value` must be a valid pointer or null.
     /// - `dispose_value` must be a valid pointer or null.
-    pub fn nw_framer_message_set_value(
+    #[doc(alias = "nw_framer_message_set_value")]
+    #[inline]
+    pub unsafe fn message_set_value(
         message: &NWFramerMessage,
         key: NonNull<c_char>,
         value: *mut c_void,
         dispose_value: nw_framer_message_dispose_value_t,
-    );
-}
+    ) {
+        extern "C-unwind" {
+            fn nw_framer_message_set_value(
+                message: &NWFramerMessage,
+                key: NonNull<c_char>,
+                value: *mut c_void,
+                dispose_value: nw_framer_message_dispose_value_t,
+            );
+        }
+        unsafe { nw_framer_message_set_value(message, key, value, dispose_value) }
+    }
 
-extern "C-unwind" {
     /// Access the value with a key on a framer message.
     ///
     ///
@@ -7992,14 +8046,23 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `key` must be a valid pointer.
-    pub fn nw_framer_message_access_value(
+    #[doc(alias = "nw_framer_message_access_value")]
+    #[inline]
+    pub unsafe fn message_access_value(
         message: &NWFramerMessage,
         key: NonNull<c_char>,
         access_value: &block2::DynBlock<dyn Fn(*const c_void) -> bool>,
-    ) -> bool;
-}
+    ) -> bool {
+        extern "C-unwind" {
+            fn nw_framer_message_access_value(
+                message: &NWFramerMessage,
+                key: NonNull<c_char>,
+                access_value: &block2::DynBlock<dyn Fn(*const c_void) -> bool>,
+            ) -> bool;
+        }
+        unsafe { nw_framer_message_access_value(message, key, access_value) }
+    }
 
-extern "C-unwind" {
     /// Set a key-value pair on a framer message, where the
     /// value is a reference-counted object.
     ///
@@ -8016,43 +8079,55 @@ extern "C-unwind" {
     ///
     /// - `key` must be a valid pointer.
     /// - `value` should be of the correct type.
+    #[doc(alias = "nw_framer_message_set_object_value")]
     #[cfg(feature = "objc2")]
-    pub fn nw_framer_message_set_object_value(
+    #[inline]
+    pub unsafe fn message_set_object_value(
         message: &NWFramerMessage,
         key: NonNull<c_char>,
         value: Option<&AnyObject>,
-    );
-}
-
-/// Copy the stored object value using a key on a framer message.
-///
-///
-/// Parameter `message`: The framer message object.
-///
-///
-/// Parameter `key`: The string key to identify the value.
-///
-///
-/// Returns: Returns a reference counted object with a +1 reference count,
-/// or NULL if no value was found for the specified key.
-///
-/// # Safety
-///
-/// `key` must be a valid pointer.
-#[cfg(feature = "objc2")]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_framer_message_copy_object_value(
-    message: &NWFramerMessage,
-    key: NonNull<c_char>,
-) -> Option<Retained<AnyObject>> {
-    extern "C-unwind" {
-        fn nw_framer_message_copy_object_value(
-            message: &NWFramerMessage,
-            key: NonNull<c_char>,
-        ) -> *mut AnyObject;
+    ) {
+        extern "C-unwind" {
+            fn nw_framer_message_set_object_value(
+                message: &NWFramerMessage,
+                key: NonNull<c_char>,
+                value: Option<&AnyObject>,
+            );
+        }
+        unsafe { nw_framer_message_set_object_value(message, key, value) }
     }
-    let ret = unsafe { nw_framer_message_copy_object_value(message, key) };
-    unsafe { Retained::from_raw(ret) }
+
+    /// Copy the stored object value using a key on a framer message.
+    ///
+    ///
+    /// Parameter `message`: The framer message object.
+    ///
+    ///
+    /// Parameter `key`: The string key to identify the value.
+    ///
+    ///
+    /// Returns: Returns a reference counted object with a +1 reference count,
+    /// or NULL if no value was found for the specified key.
+    ///
+    /// # Safety
+    ///
+    /// `key` must be a valid pointer.
+    #[doc(alias = "nw_framer_message_copy_object_value")]
+    #[cfg(feature = "objc2")]
+    #[inline]
+    pub unsafe fn message_copy_object_value(
+        message: &NWFramerMessage,
+        key: NonNull<c_char>,
+    ) -> Option<Retained<AnyObject>> {
+        extern "C-unwind" {
+            fn nw_framer_message_copy_object_value(
+                message: &NWFramerMessage,
+                key: NonNull<c_char>,
+            ) -> *mut AnyObject;
+        }
+        let ret = unsafe { nw_framer_message_copy_object_value(message, key) };
+        unsafe { Retained::from_raw(ret) }
+    }
 }
 
 /// [Apple's documentation](https://developer.apple.com/documentation/network/nw_framer_start_result_t?language=objc)
@@ -8095,71 +8170,73 @@ unsafe impl RefEncode for nw_framer_start_result_t {
 pub type nw_framer_start_handler_t =
     *mut block2::DynBlock<dyn Fn(NonNull<NWFramer>) -> nw_framer_start_result_t>;
 
-/// Create a protocol definition for a custom framer protocol.
-///
-///
-/// Parameter `identifier`: A string identifier used to name this framer protocol. This does not
-/// define uniqueness, and is primarily used for logging and debugging.
-///
-///
-/// Parameter `flags`: Flags to describe extended options on framer protocol behavior,
-/// all prefixed with "NW_FRAMER_CREATE_FLAGS_".
-///
-///
-/// Parameter `start_handler`: A block to be invoked when starting a new instance of the framer
-/// protocol. This may occur more than once for a single nw_connection.
-///
-///
-/// Returns: Returns a retained protocol definition that can be used with protocol
-/// options and metadata.
-///
-/// # Safety
-///
-/// - `identifier` must be a valid pointer.
-/// - `start_handler` must be a valid pointer.
-#[inline]
-pub unsafe extern "C-unwind" fn nw_framer_create_definition(
-    identifier: NonNull<c_char>,
-    flags: u32,
-    start_handler: nw_framer_start_handler_t,
-) -> NWRetained<NWProtocolDefinition> {
-    extern "C-unwind" {
-        fn nw_framer_create_definition(
-            identifier: NonNull<c_char>,
-            flags: u32,
-            start_handler: nw_framer_start_handler_t,
-        ) -> Option<NonNull<NWProtocolDefinition>>;
+impl NWFramer {
+    /// Create a protocol definition for a custom framer protocol.
+    ///
+    ///
+    /// Parameter `identifier`: A string identifier used to name this framer protocol. This does not
+    /// define uniqueness, and is primarily used for logging and debugging.
+    ///
+    ///
+    /// Parameter `flags`: Flags to describe extended options on framer protocol behavior,
+    /// all prefixed with "NW_FRAMER_CREATE_FLAGS_".
+    ///
+    ///
+    /// Parameter `start_handler`: A block to be invoked when starting a new instance of the framer
+    /// protocol. This may occur more than once for a single nw_connection.
+    ///
+    ///
+    /// Returns: Returns a retained protocol definition that can be used with protocol
+    /// options and metadata.
+    ///
+    /// # Safety
+    ///
+    /// - `identifier` must be a valid pointer.
+    /// - `start_handler` must be a valid pointer.
+    #[doc(alias = "nw_framer_create_definition")]
+    #[inline]
+    pub unsafe fn new_definition(
+        identifier: NonNull<c_char>,
+        flags: u32,
+        start_handler: nw_framer_start_handler_t,
+    ) -> NWRetained<NWProtocolDefinition> {
+        extern "C-unwind" {
+            fn nw_framer_create_definition(
+                identifier: NonNull<c_char>,
+                flags: u32,
+                start_handler: nw_framer_start_handler_t,
+            ) -> Option<NonNull<NWProtocolDefinition>>;
+        }
+        let ret = unsafe { nw_framer_create_definition(identifier, flags, start_handler) };
+        let ret =
+            ret.expect("function was marked as returning non-null, but actually returned NULL");
+        unsafe { NWRetained::from_raw(ret) }
     }
-    let ret = unsafe { nw_framer_create_definition(identifier, flags, start_handler) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
 
-/// Create protocol options from a framer definition. This object can
-/// be added to an nw_protocol_stack_t to be used in an nw_connection_t
-/// or an nw_listener_t.
-///
-///
-/// Parameter `framer_definition`: A protocol definition created with nw_framer_create_definition().
-///
-///
-/// Returns: Returns a retained protocol options object to add into a protocol
-/// stack.
-#[inline]
-pub extern "C-unwind" fn nw_framer_create_options(
-    framer_definition: &NWProtocolDefinition,
-) -> NWRetained<NWProtocolOptions> {
-    extern "C-unwind" {
-        fn nw_framer_create_options(
-            framer_definition: &NWProtocolDefinition,
-        ) -> Option<NonNull<NWProtocolOptions>>;
+    /// Create protocol options from a framer definition. This object can
+    /// be added to an nw_protocol_stack_t to be used in an nw_connection_t
+    /// or an nw_listener_t.
+    ///
+    ///
+    /// Parameter `framer_definition`: A protocol definition created with nw_framer_create_definition().
+    ///
+    ///
+    /// Returns: Returns a retained protocol options object to add into a protocol
+    /// stack.
+    #[doc(alias = "nw_framer_create_options")]
+    #[inline]
+    pub fn new_options(framer_definition: &NWProtocolDefinition) -> NWRetained<NWProtocolOptions> {
+        extern "C-unwind" {
+            fn nw_framer_create_options(
+                framer_definition: &NWProtocolDefinition,
+            ) -> Option<NonNull<NWProtocolOptions>>;
+        }
+        let ret = unsafe { nw_framer_create_options(framer_definition) };
+        let ret =
+            ret.expect("function was marked as returning non-null, but actually returned NULL");
+        unsafe { NWRetained::from_raw(ret) }
     }
-    let ret = unsafe { nw_framer_create_options(framer_definition) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
 
-extern "C-unwind" {
     /// Set a key-value pair on framer options, where the
     /// value is a reference-counted object.
     ///
@@ -8176,43 +8253,55 @@ extern "C-unwind" {
     ///
     /// - `key` must be a valid pointer.
     /// - `value` should be of the correct type.
+    #[doc(alias = "nw_framer_options_set_object_value")]
     #[cfg(feature = "objc2")]
-    pub fn nw_framer_options_set_object_value(
+    #[inline]
+    pub unsafe fn options_set_object_value(
         options: &NWProtocolOptions,
         key: NonNull<c_char>,
         value: Option<&AnyObject>,
-    );
-}
-
-/// Copy the stored object value using a key on framer options.
-///
-///
-/// Parameter `options`: The framer options object.
-///
-///
-/// Parameter `key`: The string key to identify the value.
-///
-///
-/// Returns: Returns a reference counted object with a +1 reference count,
-/// or NULL if no value was found for the specified key.
-///
-/// # Safety
-///
-/// `key` must be a valid pointer.
-#[cfg(feature = "objc2")]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_framer_options_copy_object_value(
-    options: &NWProtocolOptions,
-    key: NonNull<c_char>,
-) -> Option<Retained<AnyObject>> {
-    extern "C-unwind" {
-        fn nw_framer_options_copy_object_value(
-            options: &NWProtocolOptions,
-            key: NonNull<c_char>,
-        ) -> *mut AnyObject;
+    ) {
+        extern "C-unwind" {
+            fn nw_framer_options_set_object_value(
+                options: &NWProtocolOptions,
+                key: NonNull<c_char>,
+                value: Option<&AnyObject>,
+            );
+        }
+        unsafe { nw_framer_options_set_object_value(options, key, value) }
     }
-    let ret = unsafe { nw_framer_options_copy_object_value(options, key) };
-    unsafe { Retained::from_raw(ret) }
+
+    /// Copy the stored object value using a key on framer options.
+    ///
+    ///
+    /// Parameter `options`: The framer options object.
+    ///
+    ///
+    /// Parameter `key`: The string key to identify the value.
+    ///
+    ///
+    /// Returns: Returns a reference counted object with a +1 reference count,
+    /// or NULL if no value was found for the specified key.
+    ///
+    /// # Safety
+    ///
+    /// `key` must be a valid pointer.
+    #[doc(alias = "nw_framer_options_copy_object_value")]
+    #[cfg(feature = "objc2")]
+    #[inline]
+    pub unsafe fn options_copy_object_value(
+        options: &NWProtocolOptions,
+        key: NonNull<c_char>,
+    ) -> Option<Retained<AnyObject>> {
+        extern "C-unwind" {
+            fn nw_framer_options_copy_object_value(
+                options: &NWProtocolOptions,
+                key: NonNull<c_char>,
+            ) -> *mut AnyObject;
+        }
+        let ret = unsafe { nw_framer_options_copy_object_value(options, key) };
+        unsafe { Retained::from_raw(ret) }
+    }
 }
 
 /// A handler block to be invoked whenever new input
@@ -9509,9 +9598,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_listener: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_listener_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_listener_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwlistener?language=objc)
+    pub struct NWListener;
+);
 
 /// Listener states sent by nw_listener_set_state_changed_handler.
 /// States progress forward and do not move backwards.
@@ -9975,9 +10065,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_path_monitor: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_path_monitor_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_path_monitor_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwpathmonitor?language=objc)
+    pub struct NWPathMonitor;
+);
 
 impl NWPathMonitor {
     /// Create a default path monitor, that will allow the enumeration of all available
@@ -10726,260 +10817,249 @@ impl NWProtocolMetadata {
         }
         unsafe { nw_protocol_metadata_is_quic(self) }
     }
-}
 
-/// Get the QUIC stream ID.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for a QUIC stream.
-///
-///
-/// Returns: Returns the QUIC stream id.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_stream_id(metadata: &NWProtocolMetadata) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_stream_id(metadata: &NWProtocolMetadata) -> u64;
+    /// Get the QUIC stream ID.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for a QUIC stream.
+    ///
+    ///
+    /// Returns: Returns the QUIC stream id.
+    #[doc(alias = "nw_quic_get_stream_id")]
+    #[inline]
+    pub fn quic_get_stream_id(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_stream_id(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_stream_id(self) }
     }
-    unsafe { nw_quic_get_stream_id(metadata) }
-}
 
-/// Describes the type of the QUIC stream.
-///
-///
-/// Parameter `stream_metadata`: A nw_protocol_metadata_t for a QUIC stream.
-///
-///
-/// Returns: Returns the type of the QUIC stream, stored in nw_quic_stream_type_t.
-/// If the type can not be determined, returns nw_quic_stream_type_unknown.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_stream_type(stream_metadata: &NWProtocolMetadata) -> u8 {
-    extern "C-unwind" {
-        fn nw_quic_get_stream_type(stream_metadata: &NWProtocolMetadata) -> u8;
+    /// Describes the type of the QUIC stream.
+    ///
+    ///
+    /// Parameter `stream_metadata`: A nw_protocol_metadata_t for a QUIC stream.
+    ///
+    ///
+    /// Returns: Returns the type of the QUIC stream, stored in nw_quic_stream_type_t.
+    /// If the type can not be determined, returns nw_quic_stream_type_unknown.
+    #[doc(alias = "nw_quic_get_stream_type")]
+    #[inline]
+    pub fn quic_get_stream_type(&self) -> u8 {
+        extern "C-unwind" {
+            fn nw_quic_get_stream_type(stream_metadata: &NWProtocolMetadata) -> u8;
+        }
+        unsafe { nw_quic_get_stream_type(self) }
     }
-    unsafe { nw_quic_get_stream_type(stream_metadata) }
-}
 
-/// Access the Application Error value received from the peer in a stream close
-/// message.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for a QUIC stream.
-///
-///
-/// Returns: Returns the Application Error code value received from by the peer,
-/// or UINT64_MAX if no error has been received.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_stream_application_error(
-    metadata: &NWProtocolMetadata,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_stream_application_error(metadata: &NWProtocolMetadata) -> u64;
+    /// Access the Application Error value received from the peer in a stream close
+    /// message.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for a QUIC stream.
+    ///
+    ///
+    /// Returns: Returns the Application Error code value received from by the peer,
+    /// or UINT64_MAX if no error has been received.
+    #[doc(alias = "nw_quic_get_stream_application_error")]
+    #[inline]
+    pub fn quic_get_stream_application_error(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_stream_application_error(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_stream_application_error(self) }
     }
-    unsafe { nw_quic_get_stream_application_error(metadata) }
-}
 
-/// Set an Application Error value to send to the peer when the stream
-/// is closed.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for a QUIC stream.
-///
-///
-/// Parameter `application_error`: An application-specific error code value.
-#[inline]
-pub extern "C-unwind" fn nw_quic_set_stream_application_error(
-    metadata: &NWProtocolMetadata,
-    application_error: u64,
-) {
-    extern "C-unwind" {
-        fn nw_quic_set_stream_application_error(
-            metadata: &NWProtocolMetadata,
-            application_error: u64,
-        );
+    /// Set an Application Error value to send to the peer when the stream
+    /// is closed.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for a QUIC stream.
+    ///
+    ///
+    /// Parameter `application_error`: An application-specific error code value.
+    #[doc(alias = "nw_quic_set_stream_application_error")]
+    #[inline]
+    pub fn quic_set_stream_application_error(&self, application_error: u64) {
+        extern "C-unwind" {
+            fn nw_quic_set_stream_application_error(
+                metadata: &NWProtocolMetadata,
+                application_error: u64,
+            );
+        }
+        unsafe { nw_quic_set_stream_application_error(self, application_error) }
     }
-    unsafe { nw_quic_set_stream_application_error(metadata, application_error) }
-}
 
-/// Get the most recent value of the maximum number of bidirectional streams that the peer can create.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the most recent value of the peer's max number of bidirectional streams.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_local_max_streams_bidirectional(
-    metadata: &NWProtocolMetadata,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_local_max_streams_bidirectional(metadata: &NWProtocolMetadata) -> u64;
+    /// Get the most recent value of the maximum number of bidirectional streams that the peer can create.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the most recent value of the peer's max number of bidirectional streams.
+    #[doc(alias = "nw_quic_get_local_max_streams_bidirectional")]
+    #[inline]
+    pub fn quic_get_local_max_streams_bidirectional(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_local_max_streams_bidirectional(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_local_max_streams_bidirectional(self) }
     }
-    unsafe { nw_quic_get_local_max_streams_bidirectional(metadata) }
-}
 
-/// Sets the maximum number of bidirectional streams that the peer can create.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Parameter `max_streams_bidirectional`: The new number of maximum bidirectional streams.
-#[inline]
-pub extern "C-unwind" fn nw_quic_set_local_max_streams_bidirectional(
-    metadata: &NWProtocolMetadata,
-    max_streams_bidirectional: u64,
-) {
-    extern "C-unwind" {
-        fn nw_quic_set_local_max_streams_bidirectional(
-            metadata: &NWProtocolMetadata,
-            max_streams_bidirectional: u64,
-        );
+    /// Sets the maximum number of bidirectional streams that the peer can create.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Parameter `max_streams_bidirectional`: The new number of maximum bidirectional streams.
+    #[doc(alias = "nw_quic_set_local_max_streams_bidirectional")]
+    #[inline]
+    pub fn quic_set_local_max_streams_bidirectional(&self, max_streams_bidirectional: u64) {
+        extern "C-unwind" {
+            fn nw_quic_set_local_max_streams_bidirectional(
+                metadata: &NWProtocolMetadata,
+                max_streams_bidirectional: u64,
+            );
+        }
+        unsafe { nw_quic_set_local_max_streams_bidirectional(self, max_streams_bidirectional) }
     }
-    unsafe { nw_quic_set_local_max_streams_bidirectional(metadata, max_streams_bidirectional) }
-}
 
-/// Get the most recent value of the maximum number of unidirectional streams that the peer can create.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the most recent value of the peer's max number of unidirectional streams.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_local_max_streams_unidirectional(
-    metadata: &NWProtocolMetadata,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_local_max_streams_unidirectional(metadata: &NWProtocolMetadata) -> u64;
+    /// Get the most recent value of the maximum number of unidirectional streams that the peer can create.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the most recent value of the peer's max number of unidirectional streams.
+    #[doc(alias = "nw_quic_get_local_max_streams_unidirectional")]
+    #[inline]
+    pub fn quic_get_local_max_streams_unidirectional(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_local_max_streams_unidirectional(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_local_max_streams_unidirectional(self) }
     }
-    unsafe { nw_quic_get_local_max_streams_unidirectional(metadata) }
-}
 
-/// Sets the maximum number of unidirectional streams that the peer can create.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Parameter `max_streams_unidirectional`: The new number of maximum unidirectional streams.
-#[inline]
-pub extern "C-unwind" fn nw_quic_set_local_max_streams_unidirectional(
-    metadata: &NWProtocolMetadata,
-    max_streams_unidirectional: u64,
-) {
-    extern "C-unwind" {
-        fn nw_quic_set_local_max_streams_unidirectional(
-            metadata: &NWProtocolMetadata,
-            max_streams_unidirectional: u64,
-        );
+    /// Sets the maximum number of unidirectional streams that the peer can create.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Parameter `max_streams_unidirectional`: The new number of maximum unidirectional streams.
+    #[doc(alias = "nw_quic_set_local_max_streams_unidirectional")]
+    #[inline]
+    pub fn quic_set_local_max_streams_unidirectional(&self, max_streams_unidirectional: u64) {
+        extern "C-unwind" {
+            fn nw_quic_set_local_max_streams_unidirectional(
+                metadata: &NWProtocolMetadata,
+                max_streams_unidirectional: u64,
+            );
+        }
+        unsafe { nw_quic_set_local_max_streams_unidirectional(self, max_streams_unidirectional) }
     }
-    unsafe { nw_quic_set_local_max_streams_unidirectional(metadata, max_streams_unidirectional) }
-}
 
-/// Get the maximum number of bidirectional streams advertised by peer that an application
-/// is allowed to create.
-///
-/// Note that while attempts to create streams above this limit will
-/// be blocked until the server increases the limit, these blocked
-/// attempts will cause a STREAMS_BLOCKED frame to be sent to the
-/// server. This informs the server that the client has more streams
-/// it would like to create. As a result, the caller should attempt to
-/// create streams over this limit if it desires more streams.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the most recent value of the peer's advertised max number of bidirectional streams.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_remote_max_streams_bidirectional(
-    metadata: &NWProtocolMetadata,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_remote_max_streams_bidirectional(metadata: &NWProtocolMetadata) -> u64;
+    /// Get the maximum number of bidirectional streams advertised by peer that an application
+    /// is allowed to create.
+    ///
+    /// Note that while attempts to create streams above this limit will
+    /// be blocked until the server increases the limit, these blocked
+    /// attempts will cause a STREAMS_BLOCKED frame to be sent to the
+    /// server. This informs the server that the client has more streams
+    /// it would like to create. As a result, the caller should attempt to
+    /// create streams over this limit if it desires more streams.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the most recent value of the peer's advertised max number of bidirectional streams.
+    #[doc(alias = "nw_quic_get_remote_max_streams_bidirectional")]
+    #[inline]
+    pub fn quic_get_remote_max_streams_bidirectional(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_remote_max_streams_bidirectional(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_remote_max_streams_bidirectional(self) }
     }
-    unsafe { nw_quic_get_remote_max_streams_bidirectional(metadata) }
-}
 
-/// Get the maximum number of unidirectional streams advertised by peer that an application
-/// is allowed to create.
-///
-/// Note that while attempts to create streams above this limit will
-/// be blocked until the server increases the limit, these blocked
-/// attempts will cause a STREAMS_BLOCKED frame to be sent to the
-/// server. This informs the server that the client has more streams
-/// it would like to create. As a result, the caller should attempt to
-/// create streams over this limit if it desires more streams.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the most recent value of the peer's advertised max number of unidirectional streams.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_remote_max_streams_unidirectional(
-    metadata: &NWProtocolMetadata,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_remote_max_streams_unidirectional(metadata: &NWProtocolMetadata) -> u64;
+    /// Get the maximum number of unidirectional streams advertised by peer that an application
+    /// is allowed to create.
+    ///
+    /// Note that while attempts to create streams above this limit will
+    /// be blocked until the server increases the limit, these blocked
+    /// attempts will cause a STREAMS_BLOCKED frame to be sent to the
+    /// server. This informs the server that the client has more streams
+    /// it would like to create. As a result, the caller should attempt to
+    /// create streams over this limit if it desires more streams.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the most recent value of the peer's advertised max number of unidirectional streams.
+    #[doc(alias = "nw_quic_get_remote_max_streams_unidirectional")]
+    #[inline]
+    pub fn quic_get_remote_max_streams_unidirectional(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_remote_max_streams_unidirectional(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_remote_max_streams_unidirectional(self) }
     }
-    unsafe { nw_quic_get_remote_max_streams_unidirectional(metadata) }
-}
 
-/// Get the usable size of a datagram frame from a QUIC datagram flow.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the usable datagram frame size.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_stream_usable_datagram_frame_size(
-    metadata: &NWProtocolMetadata,
-) -> u16 {
-    extern "C-unwind" {
-        fn nw_quic_get_stream_usable_datagram_frame_size(metadata: &NWProtocolMetadata) -> u16;
+    /// Get the usable size of a datagram frame from a QUIC datagram flow.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the usable datagram frame size.
+    #[doc(alias = "nw_quic_get_stream_usable_datagram_frame_size")]
+    #[inline]
+    pub fn quic_get_stream_usable_datagram_frame_size(&self) -> u16 {
+        extern "C-unwind" {
+            fn nw_quic_get_stream_usable_datagram_frame_size(metadata: &NWProtocolMetadata) -> u16;
+        }
+        unsafe { nw_quic_get_stream_usable_datagram_frame_size(self) }
     }
-    unsafe { nw_quic_get_stream_usable_datagram_frame_size(metadata) }
-}
 
-/// Access the Application Error value received from the peer in a connection close
-/// message.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the Application Error code value received from by the peer,
-/// or UINT64_MAX if no    error has been received.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_application_error(metadata: &NWProtocolMetadata) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_application_error(metadata: &NWProtocolMetadata) -> u64;
+    /// Access the Application Error value received from the peer in a connection close
+    /// message.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the Application Error code value received from by the peer,
+    /// or UINT64_MAX if no    error has been received.
+    #[doc(alias = "nw_quic_get_application_error")]
+    #[inline]
+    pub fn quic_get_application_error(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_application_error(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_application_error(self) }
     }
-    unsafe { nw_quic_get_application_error(metadata) }
-}
 
-/// Access the Application Error reason string received from the peer in a connection
-/// close message.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the Application Error reason received from by the peer,
-/// or NULL if no error reason has been received.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_application_error_reason(
-    metadata: &NWProtocolMetadata,
-) -> *const c_char {
-    extern "C-unwind" {
-        fn nw_quic_get_application_error_reason(metadata: &NWProtocolMetadata) -> *const c_char;
+    /// Access the Application Error reason string received from the peer in a connection
+    /// close message.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the Application Error reason received from by the peer,
+    /// or NULL if no error reason has been received.
+    #[doc(alias = "nw_quic_get_application_error_reason")]
+    #[inline]
+    pub fn quic_get_application_error_reason(&self) -> *const c_char {
+        extern "C-unwind" {
+            fn nw_quic_get_application_error_reason(metadata: &NWProtocolMetadata)
+                -> *const c_char;
+        }
+        unsafe { nw_quic_get_application_error_reason(self) }
     }
-    unsafe { nw_quic_get_application_error_reason(metadata) }
-}
 
-extern "C-unwind" {
     /// Set the Application Error value to send to the peer in a connection close
     /// message.
     ///
@@ -10995,77 +11075,87 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `reason` must be a valid pointer or null.
-    pub fn nw_quic_set_application_error(
-        metadata: &NWProtocolMetadata,
-        application_error: u64,
-        reason: *const c_char,
-    );
-}
-
-/// Retrieves the keep-alive interval set on a QUIC connection.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns value of the keep-alive interval, in seconds,
-/// or 0 if the keep-alive timer is disabled.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_keepalive_interval(metadata: &NWProtocolMetadata) -> u16 {
-    extern "C-unwind" {
-        fn nw_quic_get_keepalive_interval(metadata: &NWProtocolMetadata) -> u16;
+    #[doc(alias = "nw_quic_set_application_error")]
+    #[inline]
+    pub unsafe fn quic_set_application_error(&self, application_error: u64, reason: *const c_char) {
+        extern "C-unwind" {
+            fn nw_quic_set_application_error(
+                metadata: &NWProtocolMetadata,
+                application_error: u64,
+                reason: *const c_char,
+            );
+        }
+        unsafe { nw_quic_set_application_error(self, application_error, reason) }
     }
-    unsafe { nw_quic_get_keepalive_interval(metadata) }
-}
 
-/// Changes the keep-alive interval for QUIC.
-///
-///
-/// QUIC connections are encrypted and operate over the UDP protocol
-/// which makes it hard for Network Address    Translators and firewalls
-/// to track their state. For this reason, these middleboxes may
-/// use short timeouts for QUIC flows. By sending keep-alive packets
-/// (QUIC PING frames), the endpoint can maintain
-/// state of the flow across the network.
-/// Keep-alives should only be enabled while there is an outstanding
-/// exchange of information with the remote endpoint that has not yet
-/// completed, it is not recommended to enable keep-alive packets on an
-/// idle connection that is not expecting to send or receive data in
-/// the near future.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Parameter `keepalive_interval`: The keep-alive interval for QUIC, in seconds,
-/// or 0 if the keep-alive timer is disabled.
-/// Pass `NW_QUIC_CONNECTION_DEFAULT_KEEPALIVE` to use the default
-/// keep-alive interval.
-#[inline]
-pub extern "C-unwind" fn nw_quic_set_keepalive_interval(
-    metadata: &NWProtocolMetadata,
-    keepalive_interval: u16,
-) {
-    extern "C-unwind" {
-        fn nw_quic_set_keepalive_interval(metadata: &NWProtocolMetadata, keepalive_interval: u16);
+    /// Retrieves the keep-alive interval set on a QUIC connection.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns value of the keep-alive interval, in seconds,
+    /// or 0 if the keep-alive timer is disabled.
+    #[doc(alias = "nw_quic_get_keepalive_interval")]
+    #[inline]
+    pub fn quic_get_keepalive_interval(&self) -> u16 {
+        extern "C-unwind" {
+            fn nw_quic_get_keepalive_interval(metadata: &NWProtocolMetadata) -> u16;
+        }
+        unsafe { nw_quic_get_keepalive_interval(self) }
     }
-    unsafe { nw_quic_set_keepalive_interval(metadata, keepalive_interval) }
-}
 
-/// Access the idle_timeout value in milliseconds received from the peer
-/// in the transport parameters.
-///
-///
-/// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
-///
-///
-/// Returns: Returns the idle_timeout value in milliseconds received from the peer.
-#[inline]
-pub extern "C-unwind" fn nw_quic_get_remote_idle_timeout(metadata: &NWProtocolMetadata) -> u64 {
-    extern "C-unwind" {
-        fn nw_quic_get_remote_idle_timeout(metadata: &NWProtocolMetadata) -> u64;
+    /// Changes the keep-alive interval for QUIC.
+    ///
+    ///
+    /// QUIC connections are encrypted and operate over the UDP protocol
+    /// which makes it hard for Network Address    Translators and firewalls
+    /// to track their state. For this reason, these middleboxes may
+    /// use short timeouts for QUIC flows. By sending keep-alive packets
+    /// (QUIC PING frames), the endpoint can maintain
+    /// state of the flow across the network.
+    /// Keep-alives should only be enabled while there is an outstanding
+    /// exchange of information with the remote endpoint that has not yet
+    /// completed, it is not recommended to enable keep-alive packets on an
+    /// idle connection that is not expecting to send or receive data in
+    /// the near future.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Parameter `keepalive_interval`: The keep-alive interval for QUIC, in seconds,
+    /// or 0 if the keep-alive timer is disabled.
+    /// Pass `NW_QUIC_CONNECTION_DEFAULT_KEEPALIVE` to use the default
+    /// keep-alive interval.
+    #[doc(alias = "nw_quic_set_keepalive_interval")]
+    #[inline]
+    pub fn quic_set_keepalive_interval(&self, keepalive_interval: u16) {
+        extern "C-unwind" {
+            fn nw_quic_set_keepalive_interval(
+                metadata: &NWProtocolMetadata,
+                keepalive_interval: u16,
+            );
+        }
+        unsafe { nw_quic_set_keepalive_interval(self, keepalive_interval) }
     }
-    unsafe { nw_quic_get_remote_idle_timeout(metadata) }
+
+    /// Access the idle_timeout value in milliseconds received from the peer
+    /// in the transport parameters.
+    ///
+    ///
+    /// Parameter `metadata`: A nw_protocol_metadata_t for QUIC.
+    ///
+    ///
+    /// Returns: Returns the idle_timeout value in milliseconds received from the peer.
+    #[doc(alias = "nw_quic_get_remote_idle_timeout")]
+    #[inline]
+    pub fn quic_get_remote_idle_timeout(&self) -> u64 {
+        extern "C-unwind" {
+            fn nw_quic_get_remote_idle_timeout(metadata: &NWProtocolMetadata) -> u64;
+        }
+        unsafe { nw_quic_get_remote_idle_timeout(self) }
+    }
 }
 
 /// Access the definition of the default system protocol implementation
@@ -11100,140 +11190,140 @@ pub extern "C-unwind" fn nw_tcp_create_options() -> NWRetained<NWProtocolOptions
     unsafe { NWRetained::from_raw(ret) }
 }
 
-/// Configure TCP to disable Nagle's algorithm, which will
-/// delay sending packets to coalesce sending.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `no_delay`: A boolean indicating that TCP should disable
-/// Nagle's algorithm.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_no_delay(options: &NWProtocolOptions, no_delay: bool) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_no_delay(options: &NWProtocolOptions, no_delay: bool);
+impl NWProtocolOptions {
+    /// Configure TCP to disable Nagle's algorithm, which will
+    /// delay sending packets to coalesce sending.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `no_delay`: A boolean indicating that TCP should disable
+    /// Nagle's algorithm.
+    #[doc(alias = "nw_tcp_options_set_no_delay")]
+    #[inline]
+    pub fn tcp_options_set_no_delay(&self, no_delay: bool) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_no_delay(options: &NWProtocolOptions, no_delay: bool);
+        }
+        unsafe { nw_tcp_options_set_no_delay(self, no_delay) }
     }
-    unsafe { nw_tcp_options_set_no_delay(options, no_delay) }
-}
 
-/// Wait to send TCP data until the connection has finished
-/// writing, or else the TCP send buffer is full.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `no_push`: A boolean indicating that TCP should use no-push mode.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_no_push(options: &NWProtocolOptions, no_push: bool) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_no_push(options: &NWProtocolOptions, no_push: bool);
+    /// Wait to send TCP data until the connection has finished
+    /// writing, or else the TCP send buffer is full.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `no_push`: A boolean indicating that TCP should use no-push mode.
+    #[doc(alias = "nw_tcp_options_set_no_push")]
+    #[inline]
+    pub fn tcp_options_set_no_push(&self, no_push: bool) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_no_push(options: &NWProtocolOptions, no_push: bool);
+        }
+        unsafe { nw_tcp_options_set_no_push(self, no_push) }
     }
-    unsafe { nw_tcp_options_set_no_push(options, no_push) }
-}
 
-/// Disable sending TCP options and extensions.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `no_options`: A boolean indicating that TCP should use no-options mode.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_no_options(
-    options: &NWProtocolOptions,
-    no_options: bool,
-) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_no_options(options: &NWProtocolOptions, no_options: bool);
+    /// Disable sending TCP options and extensions.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `no_options`: A boolean indicating that TCP should use no-options mode.
+    #[doc(alias = "nw_tcp_options_set_no_options")]
+    #[inline]
+    pub fn tcp_options_set_no_options(&self, no_options: bool) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_no_options(options: &NWProtocolOptions, no_options: bool);
+        }
+        unsafe { nw_tcp_options_set_no_options(self, no_options) }
     }
-    unsafe { nw_tcp_options_set_no_options(options, no_options) }
-}
 
-/// Enable sending TCP keepalive probes.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `enable_keepalive`: A boolean indicating that TCP should send keepalives.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_enable_keepalive(
-    options: &NWProtocolOptions,
-    enable_keepalive: bool,
-) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_enable_keepalive(options: &NWProtocolOptions, enable_keepalive: bool);
+    /// Enable sending TCP keepalive probes.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `enable_keepalive`: A boolean indicating that TCP should send keepalives.
+    #[doc(alias = "nw_tcp_options_set_enable_keepalive")]
+    #[inline]
+    pub fn tcp_options_set_enable_keepalive(&self, enable_keepalive: bool) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_enable_keepalive(
+                options: &NWProtocolOptions,
+                enable_keepalive: bool,
+            );
+        }
+        unsafe { nw_tcp_options_set_enable_keepalive(self, enable_keepalive) }
     }
-    unsafe { nw_tcp_options_set_enable_keepalive(options, enable_keepalive) }
-}
 
-/// Configure the number of times TCP keepalive probes
-/// should be sent without reply before terminating
-/// the connection.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `keepalive_count`: The number of keepalive probes to send before terminating
-/// the connection.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_keepalive_count(
-    options: &NWProtocolOptions,
-    keepalive_count: u32,
-) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_keepalive_count(options: &NWProtocolOptions, keepalive_count: u32);
+    /// Configure the number of times TCP keepalive probes
+    /// should be sent without reply before terminating
+    /// the connection.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `keepalive_count`: The number of keepalive probes to send before terminating
+    /// the connection.
+    #[doc(alias = "nw_tcp_options_set_keepalive_count")]
+    #[inline]
+    pub fn tcp_options_set_keepalive_count(&self, keepalive_count: u32) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_keepalive_count(
+                options: &NWProtocolOptions,
+                keepalive_count: u32,
+            );
+        }
+        unsafe { nw_tcp_options_set_keepalive_count(self, keepalive_count) }
     }
-    unsafe { nw_tcp_options_set_keepalive_count(options, keepalive_count) }
-}
 
-/// Configure the amount of time that a connection must be
-/// idle before TCP should start sending keepalive probes.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `keepalive_idle_time`: The number of seconds of idleness to wait before keepalive
-/// probes are sent by TCP.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_keepalive_idle_time(
-    options: &NWProtocolOptions,
-    keepalive_idle_time: u32,
-) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_keepalive_idle_time(
-            options: &NWProtocolOptions,
-            keepalive_idle_time: u32,
-        );
+    /// Configure the amount of time that a connection must be
+    /// idle before TCP should start sending keepalive probes.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `keepalive_idle_time`: The number of seconds of idleness to wait before keepalive
+    /// probes are sent by TCP.
+    #[doc(alias = "nw_tcp_options_set_keepalive_idle_time")]
+    #[inline]
+    pub fn tcp_options_set_keepalive_idle_time(&self, keepalive_idle_time: u32) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_keepalive_idle_time(
+                options: &NWProtocolOptions,
+                keepalive_idle_time: u32,
+            );
+        }
+        unsafe { nw_tcp_options_set_keepalive_idle_time(self, keepalive_idle_time) }
     }
-    unsafe { nw_tcp_options_set_keepalive_idle_time(options, keepalive_idle_time) }
-}
 
-/// Configure the amount of time between sending TCP keepalive
-/// probes when the peer is not responding.
-///
-///
-/// Parameter `options`: A TCP protocol options object.
-///
-///
-/// Parameter `keepalive_interval`: The number of seconds of to wait before resending TCP
-/// keepalive probes.
-#[inline]
-pub extern "C-unwind" fn nw_tcp_options_set_keepalive_interval(
-    options: &NWProtocolOptions,
-    keepalive_interval: u32,
-) {
-    extern "C-unwind" {
-        fn nw_tcp_options_set_keepalive_interval(
-            options: &NWProtocolOptions,
-            keepalive_interval: u32,
-        );
+    /// Configure the amount of time between sending TCP keepalive
+    /// probes when the peer is not responding.
+    ///
+    ///
+    /// Parameter `options`: A TCP protocol options object.
+    ///
+    ///
+    /// Parameter `keepalive_interval`: The number of seconds of to wait before resending TCP
+    /// keepalive probes.
+    #[doc(alias = "nw_tcp_options_set_keepalive_interval")]
+    #[inline]
+    pub fn tcp_options_set_keepalive_interval(&self, keepalive_interval: u32) {
+        extern "C-unwind" {
+            fn nw_tcp_options_set_keepalive_interval(
+                options: &NWProtocolOptions,
+                keepalive_interval: u32,
+            );
+        }
+        unsafe { nw_tcp_options_set_keepalive_interval(self, keepalive_interval) }
     }
-    unsafe { nw_tcp_options_set_keepalive_interval(options, keepalive_interval) }
 }
 
 /// Directly configure the maximum segment size (MSS)
@@ -11584,27 +11674,27 @@ pub extern "C-unwind" fn nw_udp_create_options() -> NWRetained<NWProtocolOptions
     unsafe { NWRetained::from_raw(ret) }
 }
 
-/// Configure UDP to skip computing checksums when sending.
-/// This will only take effect when running over IPv4.
-///
-///
-/// Parameter `options`: A UDP protocol options object.
-///
-///
-/// Parameter `prefer_no_checksum`: A boolean that indicates if UDP is allowed to skip computing
-/// its checksum.
-#[inline]
-pub extern "C-unwind" fn nw_udp_options_set_prefer_no_checksum(
-    options: &NWProtocolOptions,
-    prefer_no_checksum: bool,
-) {
-    extern "C-unwind" {
-        fn nw_udp_options_set_prefer_no_checksum(
-            options: &NWProtocolOptions,
-            prefer_no_checksum: bool,
-        );
+impl NWProtocolOptions {
+    /// Configure UDP to skip computing checksums when sending.
+    /// This will only take effect when running over IPv4.
+    ///
+    ///
+    /// Parameter `options`: A UDP protocol options object.
+    ///
+    ///
+    /// Parameter `prefer_no_checksum`: A boolean that indicates if UDP is allowed to skip computing
+    /// its checksum.
+    #[doc(alias = "nw_udp_options_set_prefer_no_checksum")]
+    #[inline]
+    pub fn udp_options_set_prefer_no_checksum(&self, prefer_no_checksum: bool) {
+        extern "C-unwind" {
+            fn nw_udp_options_set_prefer_no_checksum(
+                options: &NWProtocolOptions,
+                prefer_no_checksum: bool,
+            );
+        }
+        unsafe { nw_udp_options_set_prefer_no_checksum(self, prefer_no_checksum) }
     }
-    unsafe { nw_udp_options_set_prefer_no_checksum(options, prefer_no_checksum) }
 }
 
 /// Create an instance of UDP metadata that can be used
@@ -11817,7 +11907,7 @@ pub extern "C-unwind" fn nw_ws_create_options(
     unsafe { NWRetained::from_raw(ret) }
 }
 
-extern "C-unwind" {
+impl NWProtocolOptions {
     /// Set additional HTTP headers to be sent by the client during the
     /// WebSocket handshake.
     ///
@@ -11834,14 +11924,23 @@ extern "C-unwind" {
     ///
     /// - `name` must be a valid pointer.
     /// - `value` must be a valid pointer.
-    pub fn nw_ws_options_add_additional_header(
-        options: &NWProtocolOptions,
+    #[doc(alias = "nw_ws_options_add_additional_header")]
+    #[inline]
+    pub unsafe fn ws_options_add_additional_header(
+        &self,
         name: NonNull<c_char>,
         value: NonNull<c_char>,
-    );
-}
+    ) {
+        extern "C-unwind" {
+            fn nw_ws_options_add_additional_header(
+                options: &NWProtocolOptions,
+                name: NonNull<c_char>,
+                value: NonNull<c_char>,
+            );
+        }
+        unsafe { nw_ws_options_add_additional_header(self, name, value) }
+    }
 
-extern "C-unwind" {
     /// Add to the list of subprotocols that will be presented to a
     /// WebSocket server during connection establishment.
     ///
@@ -11854,71 +11953,78 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `subprotocol` must be a valid pointer.
-    pub fn nw_ws_options_add_subprotocol(options: &NWProtocolOptions, subprotocol: NonNull<c_char>);
-}
-
-/// Set whether the WebSocket connection should automatically reply to all
-/// incoming pings. If set to true, the WebSocket protocol will automatically
-/// reply to incoming pings and will deliver the pings to receive requests
-/// on the connection.
-///
-///
-/// Parameter `options`: The WebSocket protocol options object.
-///
-///
-/// Parameter `auto_reply_ping`: Whether the WebSocket connection should automatically reply to all
-/// incoming pings.
-#[inline]
-pub extern "C-unwind" fn nw_ws_options_set_auto_reply_ping(
-    options: &NWProtocolOptions,
-    auto_reply_ping: bool,
-) {
-    extern "C-unwind" {
-        fn nw_ws_options_set_auto_reply_ping(options: &NWProtocolOptions, auto_reply_ping: bool);
+    #[doc(alias = "nw_ws_options_add_subprotocol")]
+    #[inline]
+    pub unsafe fn ws_options_add_subprotocol(&self, subprotocol: NonNull<c_char>) {
+        extern "C-unwind" {
+            fn nw_ws_options_add_subprotocol(
+                options: &NWProtocolOptions,
+                subprotocol: NonNull<c_char>,
+            );
+        }
+        unsafe { nw_ws_options_add_subprotocol(self, subprotocol) }
     }
-    unsafe { nw_ws_options_set_auto_reply_ping(options, auto_reply_ping) }
-}
 
-/// Set whether the WebSocket protocol should skip the opening handshake
-/// and begin framing data as soon as a connection is established.
-///
-///
-/// Parameter `options`: The WebSocket protocol options object.
-///
-///
-/// Parameter `skip_handshake`: Whether the WebSocket connection should skip the opening handshake.
-#[inline]
-pub extern "C-unwind" fn nw_ws_options_set_skip_handshake(
-    options: &NWProtocolOptions,
-    skip_handshake: bool,
-) {
-    extern "C-unwind" {
-        fn nw_ws_options_set_skip_handshake(options: &NWProtocolOptions, skip_handshake: bool);
+    /// Set whether the WebSocket connection should automatically reply to all
+    /// incoming pings. If set to true, the WebSocket protocol will automatically
+    /// reply to incoming pings and will deliver the pings to receive requests
+    /// on the connection.
+    ///
+    ///
+    /// Parameter `options`: The WebSocket protocol options object.
+    ///
+    ///
+    /// Parameter `auto_reply_ping`: Whether the WebSocket connection should automatically reply to all
+    /// incoming pings.
+    #[doc(alias = "nw_ws_options_set_auto_reply_ping")]
+    #[inline]
+    pub fn ws_options_set_auto_reply_ping(&self, auto_reply_ping: bool) {
+        extern "C-unwind" {
+            fn nw_ws_options_set_auto_reply_ping(
+                options: &NWProtocolOptions,
+                auto_reply_ping: bool,
+            );
+        }
+        unsafe { nw_ws_options_set_auto_reply_ping(self, auto_reply_ping) }
     }
-    unsafe { nw_ws_options_set_skip_handshake(options, skip_handshake) }
-}
 
-/// Set the maximum allowed message size to be received by the WebSocket
-/// connection. This does not limit the sending message size.
-///
-///
-/// Parameter `options`: The WebSocket protocol options object.
-///
-///
-/// Parameter `maximum_message_size`: The maximum message size in bytes. A maximum message size of 0 means
-/// there is no receive limit. The default maximum message size is 0.
-#[inline]
-pub extern "C-unwind" fn nw_ws_options_set_maximum_message_size(
-    options: &NWProtocolOptions,
-    maximum_message_size: usize,
-) {
-    extern "C-unwind" {
-        fn nw_ws_options_set_maximum_message_size(
-            options: &NWProtocolOptions,
-            maximum_message_size: usize,
-        );
+    /// Set whether the WebSocket protocol should skip the opening handshake
+    /// and begin framing data as soon as a connection is established.
+    ///
+    ///
+    /// Parameter `options`: The WebSocket protocol options object.
+    ///
+    ///
+    /// Parameter `skip_handshake`: Whether the WebSocket connection should skip the opening handshake.
+    #[doc(alias = "nw_ws_options_set_skip_handshake")]
+    #[inline]
+    pub fn ws_options_set_skip_handshake(&self, skip_handshake: bool) {
+        extern "C-unwind" {
+            fn nw_ws_options_set_skip_handshake(options: &NWProtocolOptions, skip_handshake: bool);
+        }
+        unsafe { nw_ws_options_set_skip_handshake(self, skip_handshake) }
     }
-    unsafe { nw_ws_options_set_maximum_message_size(options, maximum_message_size) }
+
+    /// Set the maximum allowed message size to be received by the WebSocket
+    /// connection. This does not limit the sending message size.
+    ///
+    ///
+    /// Parameter `options`: The WebSocket protocol options object.
+    ///
+    ///
+    /// Parameter `maximum_message_size`: The maximum message size in bytes. A maximum message size of 0 means
+    /// there is no receive limit. The default maximum message size is 0.
+    #[doc(alias = "nw_ws_options_set_maximum_message_size")]
+    #[inline]
+    pub fn ws_options_set_maximum_message_size(&self, maximum_message_size: usize) {
+        extern "C-unwind" {
+            fn nw_ws_options_set_maximum_message_size(
+                options: &NWProtocolOptions,
+                maximum_message_size: usize,
+            );
+        }
+        unsafe { nw_ws_options_set_maximum_message_size(self, maximum_message_size) }
+    }
 }
 
 impl NWProtocolMetadata {
@@ -11959,62 +12065,60 @@ pub extern "C-unwind" fn nw_ws_create_metadata(
     unsafe { NWRetained::from_raw(ret) }
 }
 
-/// Get the opcode on a WebSocket frame.
-///
-///
-/// Parameter `metadata`: The metadata object representing the WebSocket frame.
-///
-///
-/// Returns: The opcode on the WebSocket frame.
-#[inline]
-pub extern "C-unwind" fn nw_ws_metadata_get_opcode(
-    metadata: &NWProtocolMetadata,
-) -> nw_ws_opcode_t {
-    extern "C-unwind" {
-        fn nw_ws_metadata_get_opcode(metadata: &NWProtocolMetadata) -> nw_ws_opcode_t;
+impl NWProtocolMetadata {
+    /// Get the opcode on a WebSocket frame.
+    ///
+    ///
+    /// Parameter `metadata`: The metadata object representing the WebSocket frame.
+    ///
+    ///
+    /// Returns: The opcode on the WebSocket frame.
+    #[doc(alias = "nw_ws_metadata_get_opcode")]
+    #[inline]
+    pub fn ws_metadata_get_opcode(&self) -> nw_ws_opcode_t {
+        extern "C-unwind" {
+            fn nw_ws_metadata_get_opcode(metadata: &NWProtocolMetadata) -> nw_ws_opcode_t;
+        }
+        unsafe { nw_ws_metadata_get_opcode(self) }
     }
-    unsafe { nw_ws_metadata_get_opcode(metadata) }
-}
 
-/// Set the close code on a WebSocket frame. The WebSocket frame's opcode
-/// should be nw_ws_opcode_close.
-///
-///
-/// Parameter `metadata`: The metadata object representing the WebSocket frame.
-///
-///
-/// Parameter `close_code`: The close code on the WebSocket frame.
-#[inline]
-pub extern "C-unwind" fn nw_ws_metadata_set_close_code(
-    metadata: &NWProtocolMetadata,
-    close_code: nw_ws_close_code_t,
-) {
-    extern "C-unwind" {
-        fn nw_ws_metadata_set_close_code(
-            metadata: &NWProtocolMetadata,
-            close_code: nw_ws_close_code_t,
-        );
+    /// Set the close code on a WebSocket frame. The WebSocket frame's opcode
+    /// should be nw_ws_opcode_close.
+    ///
+    ///
+    /// Parameter `metadata`: The metadata object representing the WebSocket frame.
+    ///
+    ///
+    /// Parameter `close_code`: The close code on the WebSocket frame.
+    #[doc(alias = "nw_ws_metadata_set_close_code")]
+    #[inline]
+    pub fn ws_metadata_set_close_code(&self, close_code: nw_ws_close_code_t) {
+        extern "C-unwind" {
+            fn nw_ws_metadata_set_close_code(
+                metadata: &NWProtocolMetadata,
+                close_code: nw_ws_close_code_t,
+            );
+        }
+        unsafe { nw_ws_metadata_set_close_code(self, close_code) }
     }
-    unsafe { nw_ws_metadata_set_close_code(metadata, close_code) }
-}
 
-/// Get the close code from a WebSocket frame. If the close code is equal
-/// to nw_ws_close_code_no_status_received, it means that a close code
-/// was not actually present in the WebSocket frame.
-///
-///
-/// Parameter `metadata`: The metadata object representing the WebSocket frame.
-///
-///
-/// Returns: The close code on the WebSocket frame.
-#[inline]
-pub extern "C-unwind" fn nw_ws_metadata_get_close_code(
-    metadata: &NWProtocolMetadata,
-) -> nw_ws_close_code_t {
-    extern "C-unwind" {
-        fn nw_ws_metadata_get_close_code(metadata: &NWProtocolMetadata) -> nw_ws_close_code_t;
+    /// Get the close code from a WebSocket frame. If the close code is equal
+    /// to nw_ws_close_code_no_status_received, it means that a close code
+    /// was not actually present in the WebSocket frame.
+    ///
+    ///
+    /// Parameter `metadata`: The metadata object representing the WebSocket frame.
+    ///
+    ///
+    /// Returns: The close code on the WebSocket frame.
+    #[doc(alias = "nw_ws_metadata_get_close_code")]
+    #[inline]
+    pub fn ws_metadata_get_close_code(&self) -> nw_ws_close_code_t {
+        extern "C-unwind" {
+            fn nw_ws_metadata_get_close_code(metadata: &NWProtocolMetadata) -> nw_ws_close_code_t;
+        }
+        unsafe { nw_ws_metadata_get_close_code(self) }
     }
-    unsafe { nw_ws_metadata_get_close_code(metadata) }
 }
 
 /// A block to be invoked when a pong reply is received after sending a ping
@@ -12027,7 +12131,7 @@ pub extern "C-unwind" fn nw_ws_metadata_get_close_code(
 /// See also [Apple's documentation](https://developer.apple.com/documentation/network/nw_ws_pong_handler_t?language=objc)
 pub type nw_ws_pong_handler_t = *mut block2::DynBlock<dyn Fn(*mut NWError)>;
 
-extern "C-unwind" {
+impl NWProtocolMetadata {
     /// Set a callback that will notify the client when a pong message has been
     /// received for a ping message sent. The metadata object's associated
     /// opcode should be nw_ws_opcode_ping.
@@ -12044,11 +12148,22 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `pong_handler` must be a valid pointer.
-    pub fn nw_ws_metadata_set_pong_handler(
-        metadata: &NWProtocolMetadata,
+    #[doc(alias = "nw_ws_metadata_set_pong_handler")]
+    #[inline]
+    pub unsafe fn ws_metadata_set_pong_handler(
+        &self,
         client_queue: &DispatchQueue,
         pong_handler: nw_ws_pong_handler_t,
-    );
+    ) {
+        extern "C-unwind" {
+            fn nw_ws_metadata_set_pong_handler(
+                metadata: &NWProtocolMetadata,
+                client_queue: &DispatchQueue,
+                pong_handler: nw_ws_pong_handler_t,
+            );
+        }
+        unsafe { nw_ws_metadata_set_pong_handler(self, client_queue, pong_handler) }
+    }
 }
 
 #[cfg(feature = "objc2")]
@@ -12058,9 +12173,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_ws_request: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_ws_request_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_ws_request_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwwsrequest?language=objc)
+    pub struct NWWsRequest;
+);
 
 /// A block that can be applied to every subprotocol in a client's WebSocket
 /// request.
@@ -12074,7 +12190,7 @@ pub type nw_ws_request_t = NSObject;
 /// See also [Apple's documentation](https://developer.apple.com/documentation/network/nw_ws_subprotocol_enumerator_t?language=objc)
 pub type nw_ws_subprotocol_enumerator_t = *mut block2::DynBlock<dyn Fn(NonNull<c_char>) -> bool>;
 
-extern "C-unwind" {
+impl NWWsRequest {
     /// Enumerates the list of subprotocols on the client's request.
     ///
     ///
@@ -12089,10 +12205,20 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `enumerator` must be a valid pointer.
-    pub fn nw_ws_request_enumerate_subprotocols(
-        request: &NWWsRequest,
+    #[doc(alias = "nw_ws_request_enumerate_subprotocols")]
+    #[inline]
+    pub unsafe fn enumerate_subprotocols(
+        &self,
         enumerator: nw_ws_subprotocol_enumerator_t,
-    ) -> bool;
+    ) -> bool {
+        extern "C-unwind" {
+            fn nw_ws_request_enumerate_subprotocols(
+                request: &NWWsRequest,
+                enumerator: nw_ws_subprotocol_enumerator_t,
+            ) -> bool;
+        }
+        unsafe { nw_ws_request_enumerate_subprotocols(self, enumerator) }
+    }
 }
 
 /// A block that can be applied to every additional header in a client's
@@ -12108,7 +12234,7 @@ extern "C-unwind" {
 pub type nw_ws_additional_header_enumerator_t =
     *mut block2::DynBlock<dyn Fn(NonNull<c_char>, NonNull<c_char>) -> bool>;
 
-extern "C-unwind" {
+impl NWWsRequest {
     /// Enumerates the list of additional headers on the client's request.
     ///
     ///
@@ -12123,10 +12249,20 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `enumerator` must be a valid pointer.
-    pub fn nw_ws_request_enumerate_additional_headers(
-        request: &NWWsRequest,
+    #[doc(alias = "nw_ws_request_enumerate_additional_headers")]
+    #[inline]
+    pub unsafe fn enumerate_additional_headers(
+        &self,
         enumerator: nw_ws_additional_header_enumerator_t,
-    ) -> bool;
+    ) -> bool {
+        extern "C-unwind" {
+            fn nw_ws_request_enumerate_additional_headers(
+                request: &NWWsRequest,
+                enumerator: nw_ws_additional_header_enumerator_t,
+            ) -> bool;
+        }
+        unsafe { nw_ws_request_enumerate_additional_headers(self, enumerator) }
+    }
 }
 
 #[cfg(feature = "objc2")]
@@ -12136,9 +12272,10 @@ extern_protocol!(
     pub unsafe trait OS_nw_ws_response: NSObjectProtocol {}
 );
 
-/// [Apple's documentation](https://developer.apple.com/documentation/network/nw_ws_response_t?language=objc)
-#[cfg(feature = "objc2")]
-pub type nw_ws_response_t = NSObject;
+nw_object!(
+    /// [Apple's documentation](https://developer.apple.com/documentation/network/nwwsresponse?language=objc)
+    pub struct NWWsResponse;
+);
 
 /// The status of a WebSocket server's response to a client's request to
 /// connect.
@@ -12206,39 +12343,41 @@ pub unsafe extern "C-unwind" fn nw_ws_response_create(
     unsafe { NWRetained::from_raw(ret) }
 }
 
-/// Get the status from a WebSocket server's response. If the response is
-/// nil, the return value will be nw_ws_response_status_invalid.
-///
-///
-/// Parameter `response`: The server response.
-///
-///
-/// Returns: The status of the server's response.
-#[inline]
-pub extern "C-unwind" fn nw_ws_response_get_status(
-    response: Option<&NWWsResponse>,
-) -> nw_ws_response_status_t {
-    extern "C-unwind" {
-        fn nw_ws_response_get_status(response: Option<&NWWsResponse>) -> nw_ws_response_status_t;
+impl NWWsResponse {
+    /// Get the status from a WebSocket server's response. If the response is
+    /// nil, the return value will be nw_ws_response_status_invalid.
+    ///
+    ///
+    /// Parameter `response`: The server response.
+    ///
+    ///
+    /// Returns: The status of the server's response.
+    #[doc(alias = "nw_ws_response_get_status")]
+    #[inline]
+    pub fn status(&self) -> nw_ws_response_status_t {
+        extern "C-unwind" {
+            fn nw_ws_response_get_status(
+                response: Option<&NWWsResponse>,
+            ) -> nw_ws_response_status_t;
+        }
+        unsafe { nw_ws_response_get_status(self) }
     }
-    unsafe { nw_ws_response_get_status(response) }
-}
 
-/// Get the selected subprotocol from a WebSocket server's response.
-///
-///
-/// Parameter `response`: The server response.
-///
-///
-/// Returns: The status of the server's response.
-#[inline]
-pub extern "C-unwind" fn nw_ws_response_get_selected_subprotocol(
-    response: &NWWsResponse,
-) -> *const c_char {
-    extern "C-unwind" {
-        fn nw_ws_response_get_selected_subprotocol(response: &NWWsResponse) -> *const c_char;
+    /// Get the selected subprotocol from a WebSocket server's response.
+    ///
+    ///
+    /// Parameter `response`: The server response.
+    ///
+    ///
+    /// Returns: The status of the server's response.
+    #[doc(alias = "nw_ws_response_get_selected_subprotocol")]
+    #[inline]
+    pub fn selected_subprotocol(&self) -> *const c_char {
+        extern "C-unwind" {
+            fn nw_ws_response_get_selected_subprotocol(response: &NWWsResponse) -> *const c_char;
+        }
+        unsafe { nw_ws_response_get_selected_subprotocol(self) }
     }
-    unsafe { nw_ws_response_get_selected_subprotocol(response) }
 }
 
 extern "C-unwind" {
@@ -12265,30 +12404,32 @@ extern "C-unwind" {
     );
 }
 
-/// Copy the WebSocket server's response to a client's request to connect.
-/// If this is called on a WebSocket server, the response object will contain
-/// the server's own response to the client.
-///
-///
-/// Parameter `metadata`: The metadata object representing the WebSocket connection.
-///
-///
-/// Returns: The server response.
-#[inline]
-pub extern "C-unwind" fn nw_ws_metadata_copy_server_response(
-    metadata: &NWProtocolMetadata,
-) -> NWRetained<NWWsResponse> {
-    extern "C-unwind" {
-        fn nw_ws_metadata_copy_server_response(
-            metadata: &NWProtocolMetadata,
-        ) -> Option<NonNull<NWWsResponse>>;
+impl NWProtocolMetadata {
+    /// Copy the WebSocket server's response to a client's request to connect.
+    /// If this is called on a WebSocket server, the response object will contain
+    /// the server's own response to the client.
+    ///
+    ///
+    /// Parameter `metadata`: The metadata object representing the WebSocket connection.
+    ///
+    ///
+    /// Returns: The server response.
+    #[doc(alias = "nw_ws_metadata_copy_server_response")]
+    #[inline]
+    pub fn ws_metadata_copy_server_response(&self) -> NWRetained<NWWsResponse> {
+        extern "C-unwind" {
+            fn nw_ws_metadata_copy_server_response(
+                metadata: &NWProtocolMetadata,
+            ) -> Option<NonNull<NWWsResponse>>;
+        }
+        let ret = unsafe { nw_ws_metadata_copy_server_response(self) };
+        let ret =
+            ret.expect("function was marked as returning non-null, but actually returned NULL");
+        unsafe { NWRetained::from_raw(ret) }
     }
-    let ret = unsafe { nw_ws_metadata_copy_server_response(metadata) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
 }
 
-extern "C-unwind" {
+impl NWWsResponse {
     /// Enumerates the list of additional headers on the server's response.
     ///
     ///
@@ -12303,10 +12444,20 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `enumerator` must be a valid pointer.
-    pub fn nw_ws_response_enumerate_additional_headers(
-        response: &NWWsResponse,
+    #[doc(alias = "nw_ws_response_enumerate_additional_headers")]
+    #[inline]
+    pub unsafe fn enumerate_additional_headers(
+        &self,
         enumerator: nw_ws_additional_header_enumerator_t,
-    ) -> bool;
+    ) -> bool {
+        extern "C-unwind" {
+            fn nw_ws_response_enumerate_additional_headers(
+                response: &NWWsResponse,
+                enumerator: nw_ws_additional_header_enumerator_t,
+            ) -> bool;
+        }
+        unsafe { nw_ws_response_enumerate_additional_headers(self, enumerator) }
+    }
 }
 
 /// A block to be invoked when a WebSocket server receives a WebSocket
@@ -12322,7 +12473,7 @@ extern "C-unwind" {
 pub type nw_ws_client_request_handler_t =
     *mut block2::DynBlock<dyn Fn(NonNull<NWWsRequest>) -> NonNull<NWWsResponse>>;
 
-extern "C-unwind" {
+impl NWProtocolOptions {
     /// Set callback handler to be invoked when a WebSocket server receives a
     /// WebSocket client's request to connect.
     ///
@@ -12338,3618 +12489,20 @@ extern "C-unwind" {
     /// # Safety
     ///
     /// `handler` must be a valid pointer.
-    pub fn nw_ws_options_set_client_request_handler(
-        options: &NWProtocolOptions,
+    #[doc(alias = "nw_ws_options_set_client_request_handler")]
+    #[inline]
+    pub unsafe fn ws_options_set_client_request_handler(
+        &self,
         client_queue: &DispatchQueue,
         handler: nw_ws_client_request_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWTxtRecord::with_bytes`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_txt_record_create_with_bytes(
-    txt_bytes: NonNull<u8>,
-    txt_len: usize,
-) -> NWRetained<NWTxtRecord> {
-    extern "C-unwind" {
-        fn nw_txt_record_create_with_bytes(
-            txt_bytes: NonNull<u8>,
-            txt_len: usize,
-        ) -> Option<NonNull<NWTxtRecord>>;
+    ) {
+        extern "C-unwind" {
+            fn nw_ws_options_set_client_request_handler(
+                options: &NWProtocolOptions,
+                client_queue: &DispatchQueue,
+                handler: nw_ws_client_request_handler_t,
+            );
+        }
+        unsafe { nw_ws_options_set_client_request_handler(self, client_queue, handler) }
     }
-    let ret = unsafe { nw_txt_record_create_with_bytes(txt_bytes, txt_len) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWTxtRecord::new_dictionary`"]
-#[inline]
-pub extern "C-unwind" fn nw_txt_record_create_dictionary() -> NWRetained<NWTxtRecord> {
-    extern "C-unwind" {
-        fn nw_txt_record_create_dictionary() -> Option<NonNull<NWTxtRecord>>;
-    }
-    let ret = unsafe { nw_txt_record_create_dictionary() };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWTxtRecord::copy`"]
-#[inline]
-pub extern "C-unwind" fn nw_txt_record_copy(&self) -> Option<NWRetained<NWTxtRecord>> {
-    extern "C-unwind" {
-        fn nw_txt_record_copy(txt_record: Option<&NWTxtRecord>) -> Option<NonNull<NWTxtRecord>>;
-    }
-    let ret = unsafe { nw_txt_record_copy(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWTxtRecord::find_key`"]
-    pub fn nw_txt_record_find_key(
-        txt_record: &NWTxtRecord,
-        key: NonNull<c_char>,
-    ) -> nw_txt_record_find_key_t;
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWTxtRecord::access_key`"]
-    pub fn nw_txt_record_access_key(
-        txt_record: &NWTxtRecord,
-        key: NonNull<c_char>,
-        access_value: nw_txt_record_access_key_t,
-    ) -> bool;
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWTxtRecord::set_key`"]
-    pub fn nw_txt_record_set_key(
-        txt_record: &NWTxtRecord,
-        key: NonNull<c_char>,
-        value: *const u8,
-        value_len: usize,
-    ) -> bool;
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWTxtRecord::remove_key`"]
-    pub fn nw_txt_record_remove_key(txt_record: &NWTxtRecord, key: NonNull<c_char>) -> bool;
-}
-
-#[deprecated = "renamed to `NWTxtRecord::key_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_txt_record_get_key_count(&self) -> usize {
-    extern "C-unwind" {
-        fn nw_txt_record_get_key_count(txt_record: Option<&NWTxtRecord>) -> usize;
-    }
-    unsafe { nw_txt_record_get_key_count(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWTxtRecord::access_bytes`"]
-    pub fn nw_txt_record_access_bytes(
-        txt_record: &NWTxtRecord,
-        access_bytes: nw_txt_record_access_bytes_t,
-    ) -> bool;
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWTxtRecord::apply`"]
-    pub fn nw_txt_record_apply(txt_record: &NWTxtRecord, applier: nw_txt_record_applier_t) -> bool;
-}
-
-#[deprecated = "renamed to `NWTxtRecord::is_equal`"]
-#[inline]
-pub extern "C-unwind" fn nw_txt_record_is_equal(&self, right: Option<&NWTxtRecord>) -> bool {
-    extern "C-unwind" {
-        fn nw_txt_record_is_equal(left: Option<&NWTxtRecord>, right: Option<&NWTxtRecord>) -> bool;
-    }
-    unsafe { nw_txt_record_is_equal(self, right) }
-}
-
-#[deprecated = "renamed to `NWTxtRecord::is_dictionary`"]
-#[inline]
-pub extern "C-unwind" fn nw_txt_record_is_dictionary(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_txt_record_is_dictionary(txt_record: &NWTxtRecord) -> bool;
-    }
-    unsafe { nw_txt_record_is_dictionary(self) }
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::new_bonjour_service`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_advertise_descriptor_create_bonjour_service(
-    name: *const c_char,
-    r#type: NonNull<c_char>,
-    domain: *const c_char,
-) -> Option<NWRetained<NWAdvertiseDescriptor>> {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_create_bonjour_service(
-            name: *const c_char,
-            r#type: NonNull<c_char>,
-            domain: *const c_char,
-        ) -> Option<NonNull<NWAdvertiseDescriptor>>;
-    }
-    let ret = unsafe { nw_advertise_descriptor_create_bonjour_service(name, r#type, domain) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWAdvertiseDescriptor::set_txt_record`"]
-    pub fn nw_advertise_descriptor_set_txt_record(
-        advertise_descriptor: &NWAdvertiseDescriptor,
-        txt_record: *const c_void,
-        txt_length: usize,
-    );
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::set_no_auto_rename`"]
-#[inline]
-pub extern "C-unwind" fn nw_advertise_descriptor_set_no_auto_rename(&self, no_auto_rename: bool) {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_set_no_auto_rename(
-            advertise_descriptor: &NWAdvertiseDescriptor,
-            no_auto_rename: bool,
-        );
-    }
-    unsafe { nw_advertise_descriptor_set_no_auto_rename(self, no_auto_rename) }
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::no_auto_rename`"]
-#[inline]
-pub extern "C-unwind" fn nw_advertise_descriptor_get_no_auto_rename(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_get_no_auto_rename(
-            advertise_descriptor: &NWAdvertiseDescriptor,
-        ) -> bool;
-    }
-    unsafe { nw_advertise_descriptor_get_no_auto_rename(self) }
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::set_txt_record_object`"]
-#[inline]
-pub extern "C-unwind" fn nw_advertise_descriptor_set_txt_record_object(
-    &self,
-    txt_record: Option<&NWTxtRecord>,
-) {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_set_txt_record_object(
-            advertise_descriptor: &NWAdvertiseDescriptor,
-            txt_record: Option<&NWTxtRecord>,
-        );
-    }
-    unsafe { nw_advertise_descriptor_set_txt_record_object(self, txt_record) }
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::txt_record_object`"]
-#[inline]
-pub extern "C-unwind" fn nw_advertise_descriptor_copy_txt_record_object(
-    &self,
-) -> Option<NWRetained<NWTxtRecord>> {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_copy_txt_record_object(
-            advertise_descriptor: &NWAdvertiseDescriptor,
-        ) -> Option<NonNull<NWTxtRecord>>;
-    }
-    let ret = unsafe { nw_advertise_descriptor_copy_txt_record_object(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::new_application_service`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_advertise_descriptor_create_application_service(
-    application_service_name: NonNull<c_char>,
-) -> NWRetained<NWAdvertiseDescriptor> {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_create_application_service(
-            application_service_name: NonNull<c_char>,
-        ) -> Option<NonNull<NWAdvertiseDescriptor>>;
-    }
-    let ret =
-        unsafe { nw_advertise_descriptor_create_application_service(application_service_name) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWAdvertiseDescriptor::application_service_name`"]
-#[inline]
-pub extern "C-unwind" fn nw_advertise_descriptor_get_application_service_name(
-    &self,
-) -> *const c_char {
-    extern "C-unwind" {
-        fn nw_advertise_descriptor_get_application_service_name(
-            advertise_descriptor: &NWAdvertiseDescriptor,
-        ) -> *const c_char;
-    }
-    unsafe { nw_advertise_descriptor_get_application_service_name(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolDefinition::is_equal`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_definition_is_equal(
-    &self,
-    definition2: &NWProtocolDefinition,
-) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_definition_is_equal(
-            definition1: &NWProtocolDefinition,
-            definition2: &NWProtocolDefinition,
-        ) -> bool;
-    }
-    unsafe { nw_protocol_definition_is_equal(self, definition2) }
-}
-
-#[deprecated = "renamed to `NWProtocolOptions::definition`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_options_copy_definition(
-    &self,
-) -> NWRetained<NWProtocolDefinition> {
-    extern "C-unwind" {
-        fn nw_protocol_options_copy_definition(
-            options: &NWProtocolOptions,
-        ) -> Option<NonNull<NWProtocolDefinition>>;
-    }
-    let ret = unsafe { nw_protocol_options_copy_definition(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::definition`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_copy_definition(
-    &self,
-) -> NWRetained<NWProtocolDefinition> {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_copy_definition(
-            metadata: &NWProtocolMetadata,
-        ) -> Option<NonNull<NWProtocolDefinition>>;
-    }
-    let ret = unsafe { nw_protocol_metadata_copy_definition(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWInterface::type`"]
-#[inline]
-pub extern "C-unwind" fn nw_interface_get_type(&self) -> nw_interface_type_t {
-    extern "C-unwind" {
-        fn nw_interface_get_type(interface: &NWInterface) -> nw_interface_type_t;
-    }
-    unsafe { nw_interface_get_type(self) }
-}
-
-#[deprecated = "renamed to `NWInterface::name`"]
-#[inline]
-pub extern "C-unwind" fn nw_interface_get_name(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_interface_get_name(interface: &NWInterface) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_interface_get_name(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWInterface::index`"]
-#[inline]
-pub extern "C-unwind" fn nw_interface_get_index(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_interface_get_index(interface: &NWInterface) -> u32;
-    }
-    unsafe { nw_interface_get_index(self) }
-}
-
-#[deprecated = "renamed to `NWEndpoint::type`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_type(&self) -> nw_endpoint_type_t {
-    extern "C-unwind" {
-        fn nw_endpoint_get_type(endpoint: &NWEndpoint) -> nw_endpoint_type_t;
-    }
-    unsafe { nw_endpoint_get_type(self) }
-}
-
-#[deprecated = "renamed to `NWEndpoint::new_host`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_endpoint_create_host(
-    hostname: NonNull<c_char>,
-    port: NonNull<c_char>,
-) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_endpoint_create_host(
-            hostname: NonNull<c_char>,
-            port: NonNull<c_char>,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_endpoint_create_host(hostname, port) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWEndpoint::hostname`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_hostname(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_get_hostname(endpoint: &NWEndpoint) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_get_hostname(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::port_string`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_copy_port_string(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_copy_port_string(endpoint: &NWEndpoint) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_copy_port_string(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::port`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_port(&self) -> u16 {
-    extern "C-unwind" {
-        fn nw_endpoint_get_port(endpoint: &NWEndpoint) -> u16;
-    }
-    unsafe { nw_endpoint_get_port(self) }
-}
-
-#[cfg(feature = "libc")]
-#[deprecated = "renamed to `NWEndpoint::new_address`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_endpoint_create_address(
-    address: NonNull<libc::sockaddr>,
-) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_endpoint_create_address(
-            address: NonNull<libc::sockaddr>,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_endpoint_create_address(address) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWEndpoint::address_string`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_copy_address_string(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_copy_address_string(endpoint: &NWEndpoint) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_copy_address_string(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[cfg(feature = "libc")]
-#[deprecated = "renamed to `NWEndpoint::address`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_address(&self) -> NonNull<libc::sockaddr> {
-    extern "C-unwind" {
-        fn nw_endpoint_get_address(endpoint: &NWEndpoint) -> Option<NonNull<libc::sockaddr>>;
-    }
-    let ret = unsafe { nw_endpoint_get_address(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::new_bonjour_service`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_endpoint_create_bonjour_service(
-    name: NonNull<c_char>,
-    r#type: NonNull<c_char>,
-    domain: NonNull<c_char>,
-) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_endpoint_create_bonjour_service(
-            name: NonNull<c_char>,
-            r#type: NonNull<c_char>,
-            domain: NonNull<c_char>,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_endpoint_create_bonjour_service(name, r#type, domain) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWEndpoint::bonjour_service_name`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_bonjour_service_name(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_get_bonjour_service_name(endpoint: &NWEndpoint) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_get_bonjour_service_name(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::bonjour_service_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_bonjour_service_type(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_get_bonjour_service_type(endpoint: &NWEndpoint) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_get_bonjour_service_type(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::bonjour_service_domain`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_bonjour_service_domain(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_get_bonjour_service_domain(endpoint: &NWEndpoint)
-            -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_get_bonjour_service_domain(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::new_url`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_endpoint_create_url(
-    url: NonNull<c_char>,
-) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_endpoint_create_url(url: NonNull<c_char>) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_endpoint_create_url(url) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWEndpoint::url`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_get_url(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_endpoint_get_url(endpoint: &NWEndpoint) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_endpoint_get_url(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWEndpoint::txt_record`"]
-#[inline]
-pub extern "C-unwind" fn nw_endpoint_copy_txt_record(&self) -> Option<NWRetained<NWTxtRecord>> {
-    extern "C-unwind" {
-        fn nw_endpoint_copy_txt_record(endpoint: &NWEndpoint) -> Option<NonNull<NWTxtRecord>>;
-    }
-    let ret = unsafe { nw_endpoint_copy_txt_record(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEndpoint::signature`"]
-    pub fn nw_endpoint_get_signature(
-        endpoint: &NWEndpoint,
-        out_signature_length: NonNull<usize>,
-    ) -> *const u8;
-}
-
-#[deprecated = "renamed to `NWResolverConfig::new_https`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolver_config_create_https(
-    url_endpoint: &NWEndpoint,
-) -> NWRetained<NWResolverConfig> {
-    extern "C-unwind" {
-        fn nw_resolver_config_create_https(
-            url_endpoint: &NWEndpoint,
-        ) -> Option<NonNull<NWResolverConfig>>;
-    }
-    let ret = unsafe { nw_resolver_config_create_https(url_endpoint) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWResolverConfig::new_tls`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolver_config_create_tls(
-    server_endpoint: &NWEndpoint,
-) -> NWRetained<NWResolverConfig> {
-    extern "C-unwind" {
-        fn nw_resolver_config_create_tls(
-            server_endpoint: &NWEndpoint,
-        ) -> Option<NonNull<NWResolverConfig>>;
-    }
-    let ret = unsafe { nw_resolver_config_create_tls(server_endpoint) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWResolverConfig::add_server_address`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolver_config_add_server_address(&self, server_address: &NWEndpoint) {
-    extern "C-unwind" {
-        fn nw_resolver_config_add_server_address(
-            config: &NWResolverConfig,
-            server_address: &NWEndpoint,
-        );
-    }
-    unsafe { nw_resolver_config_add_server_address(self, server_address) }
-}
-
-#[deprecated = "renamed to `NWRelayHop::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_relay_hop_create(
-    http3_relay_endpoint: Option<&NWEndpoint>,
-    http2_relay_endpoint: Option<&NWEndpoint>,
-    relay_tls_options: Option<&NWProtocolOptions>,
-) -> NWRetained<NWRelayHop> {
-    extern "C-unwind" {
-        fn nw_relay_hop_create(
-            http3_relay_endpoint: Option<&NWEndpoint>,
-            http2_relay_endpoint: Option<&NWEndpoint>,
-            relay_tls_options: Option<&NWProtocolOptions>,
-        ) -> Option<NonNull<NWRelayHop>>;
-    }
-    let ret = unsafe {
-        nw_relay_hop_create(
-            http3_relay_endpoint,
-            http2_relay_endpoint,
-            relay_tls_options,
-        )
-    };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWRelayHop::add_additional_http_header_field`"]
-    pub fn nw_relay_hop_add_additional_http_header_field(
-        relay_hop: &NWRelayHop,
-        field_name: NonNull<c_char>,
-        field_value: NonNull<c_char>,
-    );
-}
-
-#[deprecated = "renamed to `NWProxyConfig::new_relay`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_create_relay(
-    first_hop: &NWRelayHop,
-    second_hop: Option<&NWRelayHop>,
-) -> NWRetained<NWProxyConfig> {
-    extern "C-unwind" {
-        fn nw_proxy_config_create_relay(
-            first_hop: &NWRelayHop,
-            second_hop: Option<&NWRelayHop>,
-        ) -> Option<NonNull<NWProxyConfig>>;
-    }
-    let ret = unsafe { nw_proxy_config_create_relay(first_hop, second_hop) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWProxyConfig::new_oblivious_http`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_proxy_config_create_oblivious_http(
-    relay: &NWRelayHop,
-    relay_resource_path: NonNull<c_char>,
-    gateway_key_config: NonNull<u8>,
-    gateway_key_config_length: usize,
-) -> NWRetained<NWProxyConfig> {
-    extern "C-unwind" {
-        fn nw_proxy_config_create_oblivious_http(
-            relay: &NWRelayHop,
-            relay_resource_path: NonNull<c_char>,
-            gateway_key_config: NonNull<u8>,
-            gateway_key_config_length: usize,
-        ) -> Option<NonNull<NWProxyConfig>>;
-    }
-    let ret = unsafe {
-        nw_proxy_config_create_oblivious_http(
-            relay,
-            relay_resource_path,
-            gateway_key_config,
-            gateway_key_config_length,
-        )
-    };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWProxyConfig::new_http_connect`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_create_http_connect(
-    proxy_endpoint: &NWEndpoint,
-    proxy_tls_options: Option<&NWProtocolOptions>,
-) -> NWRetained<NWProxyConfig> {
-    extern "C-unwind" {
-        fn nw_proxy_config_create_http_connect(
-            proxy_endpoint: &NWEndpoint,
-            proxy_tls_options: Option<&NWProtocolOptions>,
-        ) -> Option<NonNull<NWProxyConfig>>;
-    }
-    let ret = unsafe { nw_proxy_config_create_http_connect(proxy_endpoint, proxy_tls_options) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWProxyConfig::new_socksv5`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_create_socksv5(
-    proxy_endpoint: &NWEndpoint,
-) -> NWRetained<NWProxyConfig> {
-    extern "C-unwind" {
-        fn nw_proxy_config_create_socksv5(
-            proxy_endpoint: &NWEndpoint,
-        ) -> Option<NonNull<NWProxyConfig>>;
-    }
-    let ret = unsafe { nw_proxy_config_create_socksv5(proxy_endpoint) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWProxyConfig::set_username_and_password`"]
-    pub fn nw_proxy_config_set_username_and_password(
-        proxy_config: &NWProxyConfig,
-        username: NonNull<c_char>,
-        password: *const c_char,
-    );
-}
-
-#[deprecated = "renamed to `NWProxyConfig::set_failover_allowed`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_set_failover_allowed(&self, failover_allowed: bool) {
-    extern "C-unwind" {
-        fn nw_proxy_config_set_failover_allowed(
-            proxy_config: &NWProxyConfig,
-            failover_allowed: bool,
-        );
-    }
-    unsafe { nw_proxy_config_set_failover_allowed(self, failover_allowed) }
-}
-
-#[deprecated = "renamed to `NWProxyConfig::failover_allowed`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_get_failover_allowed(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_proxy_config_get_failover_allowed(proxy_config: &NWProxyConfig) -> bool;
-    }
-    unsafe { nw_proxy_config_get_failover_allowed(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWProxyConfig::add_match_domain`"]
-    pub fn nw_proxy_config_add_match_domain(config: &NWProxyConfig, match_domain: NonNull<c_char>);
-}
-
-#[deprecated = "renamed to `NWProxyConfig::clear_match_domains`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_clear_match_domains(&self) {
-    extern "C-unwind" {
-        fn nw_proxy_config_clear_match_domains(config: &NWProxyConfig);
-    }
-    unsafe { nw_proxy_config_clear_match_domains(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWProxyConfig::add_excluded_domain`"]
-    pub fn nw_proxy_config_add_excluded_domain(
-        config: &NWProxyConfig,
-        excluded_domain: NonNull<c_char>,
-    );
-}
-
-#[deprecated = "renamed to `NWProxyConfig::clear_excluded_domains`"]
-#[inline]
-pub extern "C-unwind" fn nw_proxy_config_clear_excluded_domains(&self) {
-    extern "C-unwind" {
-        fn nw_proxy_config_clear_excluded_domains(config: &NWProxyConfig);
-    }
-    unsafe { nw_proxy_config_clear_excluded_domains(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWProxyConfig::enumerate_match_domains`"]
-    pub fn nw_proxy_config_enumerate_match_domains(
-        config: &NWProxyConfig,
-        enumerator: nw_proxy_domain_enumerator_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWProxyConfig::enumerate_excluded_domains`"]
-    pub fn nw_proxy_config_enumerate_excluded_domains(
-        config: &NWProxyConfig,
-        enumerator: nw_proxy_domain_enumerator_t,
-    );
-}
-
-#[deprecated = "renamed to `NWPrivacyContext::new`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_privacy_context_create(
-    description: NonNull<c_char>,
-) -> NWRetained<NWPrivacyContext> {
-    extern "C-unwind" {
-        fn nw_privacy_context_create(
-            description: NonNull<c_char>,
-        ) -> Option<NonNull<NWPrivacyContext>>;
-    }
-    let ret = unsafe { nw_privacy_context_create(description) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWPrivacyContext::flush_cache`"]
-#[inline]
-pub extern "C-unwind" fn nw_privacy_context_flush_cache(&self) {
-    extern "C-unwind" {
-        fn nw_privacy_context_flush_cache(privacy_context: &NWPrivacyContext);
-    }
-    unsafe { nw_privacy_context_flush_cache(self) }
-}
-
-#[deprecated = "renamed to `NWPrivacyContext::disable_logging`"]
-#[inline]
-pub extern "C-unwind" fn nw_privacy_context_disable_logging(&self) {
-    extern "C-unwind" {
-        fn nw_privacy_context_disable_logging(privacy_context: &NWPrivacyContext);
-    }
-    unsafe { nw_privacy_context_disable_logging(self) }
-}
-
-#[deprecated = "renamed to `NWPrivacyContext::require_encrypted_name_resolution`"]
-#[inline]
-pub extern "C-unwind" fn nw_privacy_context_require_encrypted_name_resolution(
-    &self,
-    require_encrypted_name_resolution: bool,
-    fallback_resolver_config: Option<&NWResolverConfig>,
-) {
-    extern "C-unwind" {
-        fn nw_privacy_context_require_encrypted_name_resolution(
-            privacy_context: &NWPrivacyContext,
-            require_encrypted_name_resolution: bool,
-            fallback_resolver_config: Option<&NWResolverConfig>,
-        );
-    }
-    unsafe {
-        nw_privacy_context_require_encrypted_name_resolution(
-            self,
-            require_encrypted_name_resolution,
-            fallback_resolver_config,
-        )
-    }
-}
-
-#[deprecated = "renamed to `NWPrivacyContext::add_proxy`"]
-#[inline]
-pub extern "C-unwind" fn nw_privacy_context_add_proxy(&self, proxy_config: &NWProxyConfig) {
-    extern "C-unwind" {
-        fn nw_privacy_context_add_proxy(
-            privacy_context: &NWPrivacyContext,
-            proxy_config: &NWProxyConfig,
-        );
-    }
-    unsafe { nw_privacy_context_add_proxy(self, proxy_config) }
-}
-
-#[deprecated = "renamed to `NWPrivacyContext::clear_proxies`"]
-#[inline]
-pub extern "C-unwind" fn nw_privacy_context_clear_proxies(&self) {
-    extern "C-unwind" {
-        fn nw_privacy_context_clear_proxies(privacy_context: &NWPrivacyContext);
-    }
-    unsafe { nw_privacy_context_clear_proxies(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::new_secure_tcp`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_parameters_create_secure_tcp(
-    configure_tls: nw_parameters_configure_protocol_block_t,
-    configure_tcp: nw_parameters_configure_protocol_block_t,
-) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_create_secure_tcp(
-            configure_tls: nw_parameters_configure_protocol_block_t,
-            configure_tcp: nw_parameters_configure_protocol_block_t,
-        ) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_create_secure_tcp(configure_tls, configure_tcp) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::new_secure_udp`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_parameters_create_secure_udp(
-    configure_dtls: nw_parameters_configure_protocol_block_t,
-    configure_udp: nw_parameters_configure_protocol_block_t,
-) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_create_secure_udp(
-            configure_dtls: nw_parameters_configure_protocol_block_t,
-            configure_udp: nw_parameters_configure_protocol_block_t,
-        ) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_create_secure_udp(configure_dtls, configure_udp) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::new_custom_ip`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_parameters_create_custom_ip(
-    custom_ip_protocol_number: u8,
-    configure_ip: nw_parameters_configure_protocol_block_t,
-) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_create_custom_ip(
-            custom_ip_protocol_number: u8,
-            configure_ip: nw_parameters_configure_protocol_block_t,
-        ) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_create_custom_ip(custom_ip_protocol_number, configure_ip) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::new_quic`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_parameters_create_quic(
-    configure_quic: nw_parameters_configure_protocol_block_t,
-) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_create_quic(
-            configure_quic: nw_parameters_configure_protocol_block_t,
-        ) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_create_quic(configure_quic) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::new_application_service`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_create_application_service() -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_create_application_service() -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_create_application_service() };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_create() -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_create() -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_create() };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::copy`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_copy(&self) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_parameters_copy(parameters: &NWParameters) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_parameters_copy(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_privacy_context`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_privacy_context(
-    &self,
-    privacy_context: &NWPrivacyContext,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_privacy_context(
-            parameters: &NWParameters,
-            privacy_context: &NWPrivacyContext,
-        );
-    }
-    unsafe { nw_parameters_set_privacy_context(self, privacy_context) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_attribution`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_attribution(
-    &self,
-    attribution: nw_parameters_attribution_t,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_attribution(
-            parameters: &NWParameters,
-            attribution: nw_parameters_attribution_t,
-        );
-    }
-    unsafe { nw_parameters_set_attribution(self, attribution) }
-}
-
-#[deprecated = "renamed to `NWParameters::attribution`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_attribution(&self) -> nw_parameters_attribution_t {
-    extern "C-unwind" {
-        fn nw_parameters_get_attribution(parameters: &NWParameters) -> nw_parameters_attribution_t;
-    }
-    unsafe { nw_parameters_get_attribution(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::require_interface`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_require_interface(&self, interface: Option<&NWInterface>) {
-    extern "C-unwind" {
-        fn nw_parameters_require_interface(
-            parameters: &NWParameters,
-            interface: Option<&NWInterface>,
-        );
-    }
-    unsafe { nw_parameters_require_interface(self, interface) }
-}
-
-#[deprecated = "renamed to `NWParameters::required_interface`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_copy_required_interface(
-    &self,
-) -> Option<NWRetained<NWInterface>> {
-    extern "C-unwind" {
-        fn nw_parameters_copy_required_interface(
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWInterface>>;
-    }
-    let ret = unsafe { nw_parameters_copy_required_interface(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWParameters::prohibit_interface`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_prohibit_interface(&self, interface: &NWInterface) {
-    extern "C-unwind" {
-        fn nw_parameters_prohibit_interface(parameters: &NWParameters, interface: &NWInterface);
-    }
-    unsafe { nw_parameters_prohibit_interface(self, interface) }
-}
-
-#[deprecated = "renamed to `NWParameters::clear_prohibited_interfaces`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_clear_prohibited_interfaces(&self) {
-    extern "C-unwind" {
-        fn nw_parameters_clear_prohibited_interfaces(parameters: &NWParameters);
-    }
-    unsafe { nw_parameters_clear_prohibited_interfaces(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWParameters::iterate_prohibited_interfaces`"]
-    pub fn nw_parameters_iterate_prohibited_interfaces(
-        parameters: &NWParameters,
-        iterate_block: nw_parameters_iterate_interfaces_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWParameters::set_required_interface_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_required_interface_type(
-    &self,
-    interface_type: nw_interface_type_t,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_required_interface_type(
-            parameters: &NWParameters,
-            interface_type: nw_interface_type_t,
-        );
-    }
-    unsafe { nw_parameters_set_required_interface_type(self, interface_type) }
-}
-
-#[deprecated = "renamed to `NWParameters::required_interface_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_required_interface_type(&self) -> nw_interface_type_t {
-    extern "C-unwind" {
-        fn nw_parameters_get_required_interface_type(
-            parameters: &NWParameters,
-        ) -> nw_interface_type_t;
-    }
-    unsafe { nw_parameters_get_required_interface_type(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::prohibit_interface_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_prohibit_interface_type(
-    &self,
-    interface_type: nw_interface_type_t,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_prohibit_interface_type(
-            parameters: &NWParameters,
-            interface_type: nw_interface_type_t,
-        );
-    }
-    unsafe { nw_parameters_prohibit_interface_type(self, interface_type) }
-}
-
-#[deprecated = "renamed to `NWParameters::clear_prohibited_interface_types`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_clear_prohibited_interface_types(&self) {
-    extern "C-unwind" {
-        fn nw_parameters_clear_prohibited_interface_types(parameters: &NWParameters);
-    }
-    unsafe { nw_parameters_clear_prohibited_interface_types(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWParameters::iterate_prohibited_interface_types`"]
-    pub fn nw_parameters_iterate_prohibited_interface_types(
-        parameters: &NWParameters,
-        iterate_block: nw_parameters_iterate_interface_types_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWParameters::set_prohibit_expensive`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_prohibit_expensive(&self, prohibit_expensive: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_prohibit_expensive(
-            parameters: &NWParameters,
-            prohibit_expensive: bool,
-        );
-    }
-    unsafe { nw_parameters_set_prohibit_expensive(self, prohibit_expensive) }
-}
-
-#[deprecated = "renamed to `NWParameters::prohibit_expensive`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_prohibit_expensive(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_prohibit_expensive(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_prohibit_expensive(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_prohibit_constrained`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_prohibit_constrained(&self, prohibit_constrained: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_prohibit_constrained(
-            parameters: &NWParameters,
-            prohibit_constrained: bool,
-        );
-    }
-    unsafe { nw_parameters_set_prohibit_constrained(self, prohibit_constrained) }
-}
-
-#[deprecated = "renamed to `NWParameters::prohibit_constrained`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_prohibit_constrained(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_prohibit_constrained(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_prohibit_constrained(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_allow_ultra_constrained`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_allow_ultra_constrained(
-    &self,
-    allow_ultra_constrained: bool,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_allow_ultra_constrained(
-            parameters: &NWParameters,
-            allow_ultra_constrained: bool,
-        );
-    }
-    unsafe { nw_parameters_set_allow_ultra_constrained(self, allow_ultra_constrained) }
-}
-
-#[deprecated = "renamed to `NWParameters::allow_ultra_constrained`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_allow_ultra_constrained(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_allow_ultra_constrained(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_allow_ultra_constrained(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_reuse_local_address`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_reuse_local_address(&self, reuse_local_address: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_reuse_local_address(
-            parameters: &NWParameters,
-            reuse_local_address: bool,
-        );
-    }
-    unsafe { nw_parameters_set_reuse_local_address(self, reuse_local_address) }
-}
-
-#[deprecated = "renamed to `NWParameters::reuse_local_address`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_reuse_local_address(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_reuse_local_address(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_reuse_local_address(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_local_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_local_endpoint(
-    &self,
-    local_endpoint: Option<&NWEndpoint>,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_local_endpoint(
-            parameters: &NWParameters,
-            local_endpoint: Option<&NWEndpoint>,
-        );
-    }
-    unsafe { nw_parameters_set_local_endpoint(self, local_endpoint) }
-}
-
-#[deprecated = "renamed to `NWParameters::local_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_copy_local_endpoint(
-    &self,
-) -> Option<NWRetained<NWEndpoint>> {
-    extern "C-unwind" {
-        fn nw_parameters_copy_local_endpoint(
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_parameters_copy_local_endpoint(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWParameters::set_include_peer_to_peer`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_include_peer_to_peer(&self, include_peer_to_peer: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_include_peer_to_peer(
-            parameters: &NWParameters,
-            include_peer_to_peer: bool,
-        );
-    }
-    unsafe { nw_parameters_set_include_peer_to_peer(self, include_peer_to_peer) }
-}
-
-#[deprecated = "renamed to `NWParameters::include_peer_to_peer`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_include_peer_to_peer(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_include_peer_to_peer(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_include_peer_to_peer(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_fast_open_enabled`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_fast_open_enabled(&self, fast_open_enabled: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_fast_open_enabled(parameters: &NWParameters, fast_open_enabled: bool);
-    }
-    unsafe { nw_parameters_set_fast_open_enabled(self, fast_open_enabled) }
-}
-
-#[deprecated = "renamed to `NWParameters::fast_open_enabled`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_fast_open_enabled(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_fast_open_enabled(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_fast_open_enabled(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_service_class`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_service_class(&self, service_class: nw_service_class_t) {
-    extern "C-unwind" {
-        fn nw_parameters_set_service_class(
-            parameters: &NWParameters,
-            service_class: nw_service_class_t,
-        );
-    }
-    unsafe { nw_parameters_set_service_class(self, service_class) }
-}
-
-#[deprecated = "renamed to `NWParameters::service_class`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_service_class(&self) -> nw_service_class_t {
-    extern "C-unwind" {
-        fn nw_parameters_get_service_class(parameters: &NWParameters) -> nw_service_class_t;
-    }
-    unsafe { nw_parameters_get_service_class(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_multipath_service`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_multipath_service(
-    &self,
-    multipath_service: nw_multipath_service_t,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_multipath_service(
-            parameters: &NWParameters,
-            multipath_service: nw_multipath_service_t,
-        );
-    }
-    unsafe { nw_parameters_set_multipath_service(self, multipath_service) }
-}
-
-#[deprecated = "renamed to `NWParameters::multipath_service`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_multipath_service(&self) -> nw_multipath_service_t {
-    extern "C-unwind" {
-        fn nw_parameters_get_multipath_service(parameters: &NWParameters)
-            -> nw_multipath_service_t;
-    }
-    unsafe { nw_parameters_get_multipath_service(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::default_protocol_stack`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_copy_default_protocol_stack(
-    &self,
-) -> NWRetained<NWProtocolStack> {
-    extern "C-unwind" {
-        fn nw_parameters_copy_default_protocol_stack(
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWProtocolStack>>;
-    }
-    let ret = unsafe { nw_parameters_copy_default_protocol_stack(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWProtocolStack::prepend_application_protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_stack_prepend_application_protocol(
-    &self,
-    protocol: &NWProtocolOptions,
-) {
-    extern "C-unwind" {
-        fn nw_protocol_stack_prepend_application_protocol(
-            stack: &NWProtocolStack,
-            protocol: &NWProtocolOptions,
-        );
-    }
-    unsafe { nw_protocol_stack_prepend_application_protocol(self, protocol) }
-}
-
-#[deprecated = "renamed to `NWProtocolStack::clear_application_protocols`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_stack_clear_application_protocols(&self) {
-    extern "C-unwind" {
-        fn nw_protocol_stack_clear_application_protocols(stack: &NWProtocolStack);
-    }
-    unsafe { nw_protocol_stack_clear_application_protocols(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWProtocolStack::iterate_application_protocols`"]
-    pub fn nw_protocol_stack_iterate_application_protocols(
-        stack: &NWProtocolStack,
-        iterate_block: nw_protocol_stack_iterate_protocols_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWProtocolStack::transport_protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_stack_copy_transport_protocol(
-    &self,
-) -> Option<NWRetained<NWProtocolOptions>> {
-    extern "C-unwind" {
-        fn nw_protocol_stack_copy_transport_protocol(
-            stack: &NWProtocolStack,
-        ) -> Option<NonNull<NWProtocolOptions>>;
-    }
-    let ret = unsafe { nw_protocol_stack_copy_transport_protocol(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWProtocolStack::set_transport_protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_stack_set_transport_protocol(
-    &self,
-    protocol: &NWProtocolOptions,
-) {
-    extern "C-unwind" {
-        fn nw_protocol_stack_set_transport_protocol(
-            stack: &NWProtocolStack,
-            protocol: &NWProtocolOptions,
-        );
-    }
-    unsafe { nw_protocol_stack_set_transport_protocol(self, protocol) }
-}
-
-#[deprecated = "renamed to `NWProtocolStack::internet_protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_stack_copy_internet_protocol(
-    &self,
-) -> Option<NWRetained<NWProtocolOptions>> {
-    extern "C-unwind" {
-        fn nw_protocol_stack_copy_internet_protocol(
-            stack: &NWProtocolStack,
-        ) -> Option<NonNull<NWProtocolOptions>>;
-    }
-    let ret = unsafe { nw_protocol_stack_copy_internet_protocol(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWParameters::set_local_only`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_local_only(&self, local_only: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_local_only(parameters: &NWParameters, local_only: bool);
-    }
-    unsafe { nw_parameters_set_local_only(self, local_only) }
-}
-
-#[deprecated = "renamed to `NWParameters::local_only`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_local_only(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_local_only(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_local_only(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_prefer_no_proxy`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_prefer_no_proxy(&self, prefer_no_proxy: bool) {
-    extern "C-unwind" {
-        fn nw_parameters_set_prefer_no_proxy(parameters: &NWParameters, prefer_no_proxy: bool);
-    }
-    unsafe { nw_parameters_set_prefer_no_proxy(self, prefer_no_proxy) }
-}
-
-#[deprecated = "renamed to `NWParameters::prefer_no_proxy`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_prefer_no_proxy(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_get_prefer_no_proxy(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_get_prefer_no_proxy(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_expired_dns_behavior`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_expired_dns_behavior(
-    &self,
-    expired_dns_behavior: nw_parameters_expired_dns_behavior_t,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_expired_dns_behavior(
-            parameters: &NWParameters,
-            expired_dns_behavior: nw_parameters_expired_dns_behavior_t,
-        );
-    }
-    unsafe { nw_parameters_set_expired_dns_behavior(self, expired_dns_behavior) }
-}
-
-#[deprecated = "renamed to `NWParameters::expired_dns_behavior`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_get_expired_dns_behavior(
-    &self,
-) -> nw_parameters_expired_dns_behavior_t {
-    extern "C-unwind" {
-        fn nw_parameters_get_expired_dns_behavior(
-            parameters: &NWParameters,
-        ) -> nw_parameters_expired_dns_behavior_t;
-    }
-    unsafe { nw_parameters_get_expired_dns_behavior(self) }
-}
-
-#[deprecated = "renamed to `NWParameters::set_requires_dnssec_validation`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_set_requires_dnssec_validation(
-    &self,
-    requires_dnssec_validation: bool,
-) {
-    extern "C-unwind" {
-        fn nw_parameters_set_requires_dnssec_validation(
-            parameters: &NWParameters,
-            requires_dnssec_validation: bool,
-        );
-    }
-    unsafe { nw_parameters_set_requires_dnssec_validation(self, requires_dnssec_validation) }
-}
-
-#[deprecated = "renamed to `NWParameters::requires_dnssec_validation`"]
-#[inline]
-pub extern "C-unwind" fn nw_parameters_requires_dnssec_validation(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_parameters_requires_dnssec_validation(parameters: &NWParameters) -> bool;
-    }
-    unsafe { nw_parameters_requires_dnssec_validation(self) }
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::new_bonjour_service`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_browse_descriptor_create_bonjour_service(
-    r#type: NonNull<c_char>,
-    domain: *const c_char,
-) -> NWRetained<NWBrowseDescriptor> {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_create_bonjour_service(
-            r#type: NonNull<c_char>,
-            domain: *const c_char,
-        ) -> Option<NonNull<NWBrowseDescriptor>>;
-    }
-    let ret = unsafe { nw_browse_descriptor_create_bonjour_service(r#type, domain) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::bonjour_service_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_descriptor_get_bonjour_service_type(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_get_bonjour_service_type(
-            descriptor: &NWBrowseDescriptor,
-        ) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_browse_descriptor_get_bonjour_service_type(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::bonjour_service_domain`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_descriptor_get_bonjour_service_domain(&self) -> *const c_char {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_get_bonjour_service_domain(
-            descriptor: &NWBrowseDescriptor,
-        ) -> *const c_char;
-    }
-    unsafe { nw_browse_descriptor_get_bonjour_service_domain(self) }
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::set_include_txt_record`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_descriptor_set_include_txt_record(
-    &self,
-    include_txt_record: bool,
-) {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_set_include_txt_record(
-            descriptor: &NWBrowseDescriptor,
-            include_txt_record: bool,
-        );
-    }
-    unsafe { nw_browse_descriptor_set_include_txt_record(self, include_txt_record) }
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::include_txt_record`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_descriptor_get_include_txt_record(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_get_include_txt_record(descriptor: &NWBrowseDescriptor) -> bool;
-    }
-    unsafe { nw_browse_descriptor_get_include_txt_record(self) }
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::new_application_service`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_browse_descriptor_create_application_service(
-    application_service_name: NonNull<c_char>,
-) -> NWRetained<NWBrowseDescriptor> {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_create_application_service(
-            application_service_name: NonNull<c_char>,
-        ) -> Option<NonNull<NWBrowseDescriptor>>;
-    }
-    let ret = unsafe { nw_browse_descriptor_create_application_service(application_service_name) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWBrowseDescriptor::application_service_name`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_descriptor_get_application_service_name(&self) -> *const c_char {
-    extern "C-unwind" {
-        fn nw_browse_descriptor_get_application_service_name(
-            descriptor: &NWBrowseDescriptor,
-        ) -> *const c_char;
-    }
-    unsafe { nw_browse_descriptor_get_application_service_name(self) }
-}
-
-#[deprecated = "renamed to `NWBrowseResult::endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_result_copy_endpoint(&self) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_browse_result_copy_endpoint(result: &NWBrowseResult) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_browse_result_copy_endpoint(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWBrowseResult::changes`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_result_get_changes(
-    &self,
-    new_result: Option<&NWBrowseResult>,
-) -> nw_browse_result_change_t {
-    extern "C-unwind" {
-        fn nw_browse_result_get_changes(
-            old_result: Option<&NWBrowseResult>,
-            new_result: Option<&NWBrowseResult>,
-        ) -> nw_browse_result_change_t;
-    }
-    unsafe { nw_browse_result_get_changes(self, new_result) }
-}
-
-#[deprecated = "renamed to `NWBrowseResult::interfaces_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_result_get_interfaces_count(&self) -> usize {
-    extern "C-unwind" {
-        fn nw_browse_result_get_interfaces_count(result: &NWBrowseResult) -> usize;
-    }
-    unsafe { nw_browse_result_get_interfaces_count(self) }
-}
-
-#[deprecated = "renamed to `NWBrowseResult::txt_record_object`"]
-#[inline]
-pub extern "C-unwind" fn nw_browse_result_copy_txt_record_object(
-    &self,
-) -> Option<NWRetained<NWTxtRecord>> {
-    extern "C-unwind" {
-        fn nw_browse_result_copy_txt_record_object(
-            result: &NWBrowseResult,
-        ) -> Option<NonNull<NWTxtRecord>>;
-    }
-    let ret = unsafe { nw_browse_result_copy_txt_record_object(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWBrowseResult::enumerate_interfaces`"]
-    pub fn nw_browse_result_enumerate_interfaces(
-        result: &NWBrowseResult,
-        enumerator: nw_browse_result_enumerate_interface_t,
-    );
-}
-
-#[deprecated = "renamed to `NWError::error_domain`"]
-#[inline]
-pub extern "C-unwind" fn nw_error_get_error_domain(&self) -> nw_error_domain_t {
-    extern "C-unwind" {
-        fn nw_error_get_error_domain(error: &NWError) -> nw_error_domain_t;
-    }
-    unsafe { nw_error_get_error_domain(self) }
-}
-
-#[deprecated = "renamed to `NWError::error_code`"]
-#[inline]
-pub extern "C-unwind" fn nw_error_get_error_code(&self) -> c_int {
-    extern "C-unwind" {
-        fn nw_error_get_error_code(error: &NWError) -> c_int;
-    }
-    unsafe { nw_error_get_error_code(self) }
-}
-
-#[cfg(feature = "objc2-core-foundation")]
-#[deprecated = "renamed to `NWError::cf_error`"]
-#[inline]
-pub extern "C-unwind" fn nw_error_copy_cf_error(&self) -> CFRetained<CFError> {
-    extern "C-unwind" {
-        fn nw_error_copy_cf_error(error: &NWError) -> Option<NonNull<CFError>>;
-    }
-    let ret = unsafe { nw_error_copy_cf_error(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { CFRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWBrowser::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_browser_create(
-    descriptor: &NWBrowseDescriptor,
-    parameters: Option<&NWParameters>,
-) -> NWRetained<NWBrowser> {
-    extern "C-unwind" {
-        fn nw_browser_create(
-            descriptor: &NWBrowseDescriptor,
-            parameters: Option<&NWParameters>,
-        ) -> Option<NonNull<NWBrowser>>;
-    }
-    let ret = unsafe { nw_browser_create(descriptor, parameters) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWBrowser::set_queue`"]
-#[inline]
-pub extern "C-unwind" fn nw_browser_set_queue(&self, queue: &DispatchQueue) {
-    extern "C-unwind" {
-        fn nw_browser_set_queue(browser: &NWBrowser, queue: &DispatchQueue);
-    }
-    unsafe { nw_browser_set_queue(self, queue) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWBrowser::set_browse_results_changed_handler`"]
-    pub fn nw_browser_set_browse_results_changed_handler(
-        browser: &NWBrowser,
-        handler: nw_browser_browse_results_changed_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWBrowser::set_state_changed_handler`"]
-    pub fn nw_browser_set_state_changed_handler(
-        browser: &NWBrowser,
-        state_changed_handler: nw_browser_state_changed_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWBrowser::start`"]
-#[inline]
-pub extern "C-unwind" fn nw_browser_start(&self) {
-    extern "C-unwind" {
-        fn nw_browser_start(browser: &NWBrowser);
-    }
-    unsafe { nw_browser_start(self) }
-}
-
-#[deprecated = "renamed to `NWBrowser::cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_browser_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_browser_cancel(browser: &NWBrowser);
-    }
-    unsafe { nw_browser_cancel(self) }
-}
-
-#[deprecated = "renamed to `NWBrowser::parameters`"]
-#[inline]
-pub extern "C-unwind" fn nw_browser_copy_parameters(&self) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_browser_copy_parameters(browser: &NWBrowser) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_browser_copy_parameters(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWBrowser::browse_descriptor`"]
-#[inline]
-pub extern "C-unwind" fn nw_browser_copy_browse_descriptor(
-    &self,
-) -> NWRetained<NWBrowseDescriptor> {
-    extern "C-unwind" {
-        fn nw_browser_copy_browse_descriptor(
-            browser: &NWBrowser,
-        ) -> Option<NonNull<NWBrowseDescriptor>>;
-    }
-    let ret = unsafe { nw_browser_copy_browse_descriptor(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWPath::status`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_get_status(&self) -> nw_path_status_t {
-    extern "C-unwind" {
-        fn nw_path_get_status(path: &NWPath) -> nw_path_status_t;
-    }
-    unsafe { nw_path_get_status(self) }
-}
-
-#[deprecated = "renamed to `NWPath::unsatisfied_reason`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_get_unsatisfied_reason(&self) -> nw_path_unsatisfied_reason_t {
-    extern "C-unwind" {
-        fn nw_path_get_unsatisfied_reason(path: &NWPath) -> nw_path_unsatisfied_reason_t;
-    }
-    unsafe { nw_path_get_unsatisfied_reason(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWPath::enumerate_interfaces`"]
-    pub fn nw_path_enumerate_interfaces(
-        path: &NWPath,
-        enumerate_block: nw_path_enumerate_interfaces_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWPath::is_equal`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_is_equal(&self, other_path: &NWPath) -> bool {
-    extern "C-unwind" {
-        fn nw_path_is_equal(path: &NWPath, other_path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_is_equal(self, other_path) }
-}
-
-#[deprecated = "renamed to `NWPath::is_expensive`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_is_expensive(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_path_is_expensive(path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_is_expensive(self) }
-}
-
-#[deprecated = "renamed to `NWPath::is_constrained`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_is_constrained(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_path_is_constrained(path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_is_constrained(self) }
-}
-
-#[deprecated = "renamed to `NWPath::is_ultra_constrained`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_is_ultra_constrained(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_path_is_ultra_constrained(path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_is_ultra_constrained(self) }
-}
-
-#[deprecated = "renamed to `NWPath::has_ipv4`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_has_ipv4(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_path_has_ipv4(path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_has_ipv4(self) }
-}
-
-#[deprecated = "renamed to `NWPath::has_ipv6`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_has_ipv6(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_path_has_ipv6(path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_has_ipv6(self) }
-}
-
-#[deprecated = "renamed to `NWPath::has_dns`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_has_dns(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_path_has_dns(path: &NWPath) -> bool;
-    }
-    unsafe { nw_path_has_dns(self) }
-}
-
-#[deprecated = "renamed to `NWPath::uses_interface_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_uses_interface_type(
-    &self,
-    interface_type: nw_interface_type_t,
-) -> bool {
-    extern "C-unwind" {
-        fn nw_path_uses_interface_type(path: &NWPath, interface_type: nw_interface_type_t) -> bool;
-    }
-    unsafe { nw_path_uses_interface_type(self, interface_type) }
-}
-
-#[deprecated = "renamed to `NWPath::effective_local_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_copy_effective_local_endpoint(
-    &self,
-) -> Option<NWRetained<NWEndpoint>> {
-    extern "C-unwind" {
-        fn nw_path_copy_effective_local_endpoint(path: &NWPath) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_path_copy_effective_local_endpoint(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWPath::effective_remote_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_copy_effective_remote_endpoint(
-    &self,
-) -> Option<NWRetained<NWEndpoint>> {
-    extern "C-unwind" {
-        fn nw_path_copy_effective_remote_endpoint(path: &NWPath) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_path_copy_effective_remote_endpoint(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWPath::enumerate_gateways`"]
-    pub fn nw_path_enumerate_gateways(
-        path: &NWPath,
-        enumerate_block: nw_path_enumerate_gateways_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWPath::link_quality`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_get_link_quality(&self) -> nw_link_quality_t {
-    extern "C-unwind" {
-        fn nw_path_get_link_quality(path: &NWPath) -> nw_link_quality_t;
-    }
-    unsafe { nw_path_get_link_quality(self) }
-}
-
-#[deprecated = "renamed to `NWContentContext::new`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_content_context_create(
-    context_identifier: NonNull<c_char>,
-) -> NWRetained<NWContentContext> {
-    extern "C-unwind" {
-        fn nw_content_context_create(
-            context_identifier: NonNull<c_char>,
-        ) -> Option<NonNull<NWContentContext>>;
-    }
-    let ret = unsafe { nw_content_context_create(context_identifier) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWContentContext::identifier`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_get_identifier(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_content_context_get_identifier(context: &NWContentContext)
-            -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_content_context_get_identifier(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWContentContext::is_final`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_get_is_final(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_content_context_get_is_final(context: &NWContentContext) -> bool;
-    }
-    unsafe { nw_content_context_get_is_final(self) }
-}
-
-#[deprecated = "renamed to `NWContentContext::set_is_final`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_set_is_final(&self, is_final: bool) {
-    extern "C-unwind" {
-        fn nw_content_context_set_is_final(context: &NWContentContext, is_final: bool);
-    }
-    unsafe { nw_content_context_set_is_final(self, is_final) }
-}
-
-#[deprecated = "renamed to `NWContentContext::expiration_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_get_expiration_milliseconds(&self) -> u64 {
-    extern "C-unwind" {
-        fn nw_content_context_get_expiration_milliseconds(context: &NWContentContext) -> u64;
-    }
-    unsafe { nw_content_context_get_expiration_milliseconds(self) }
-}
-
-#[deprecated = "renamed to `NWContentContext::set_expiration_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_set_expiration_milliseconds(
-    &self,
-    expiration_milliseconds: u64,
-) {
-    extern "C-unwind" {
-        fn nw_content_context_set_expiration_milliseconds(
-            context: &NWContentContext,
-            expiration_milliseconds: u64,
-        );
-    }
-    unsafe { nw_content_context_set_expiration_milliseconds(self, expiration_milliseconds) }
-}
-
-#[deprecated = "renamed to `NWContentContext::relative_priority`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_get_relative_priority(&self) -> c_double {
-    extern "C-unwind" {
-        fn nw_content_context_get_relative_priority(context: &NWContentContext) -> c_double;
-    }
-    unsafe { nw_content_context_get_relative_priority(self) }
-}
-
-#[deprecated = "renamed to `NWContentContext::set_relative_priority`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_set_relative_priority(
-    &self,
-    relative_priority: c_double,
-) {
-    extern "C-unwind" {
-        fn nw_content_context_set_relative_priority(
-            context: &NWContentContext,
-            relative_priority: c_double,
-        );
-    }
-    unsafe { nw_content_context_set_relative_priority(self, relative_priority) }
-}
-
-#[deprecated = "renamed to `NWContentContext::set_antecedent`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_set_antecedent(
-    &self,
-    antecedent_context: Option<&NWContentContext>,
-) {
-    extern "C-unwind" {
-        fn nw_content_context_set_antecedent(
-            context: &NWContentContext,
-            antecedent_context: Option<&NWContentContext>,
-        );
-    }
-    unsafe { nw_content_context_set_antecedent(self, antecedent_context) }
-}
-
-#[deprecated = "renamed to `NWContentContext::antecedent`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_copy_antecedent(
-    &self,
-) -> Option<NWRetained<NWContentContext>> {
-    extern "C-unwind" {
-        fn nw_content_context_copy_antecedent(
-            context: &NWContentContext,
-        ) -> Option<NonNull<NWContentContext>>;
-    }
-    let ret = unsafe { nw_content_context_copy_antecedent(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWContentContext::set_metadata_for_protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_set_metadata_for_protocol(
-    &self,
-    protocol_metadata: &NWProtocolMetadata,
-) {
-    extern "C-unwind" {
-        fn nw_content_context_set_metadata_for_protocol(
-            context: &NWContentContext,
-            protocol_metadata: &NWProtocolMetadata,
-        );
-    }
-    unsafe { nw_content_context_set_metadata_for_protocol(self, protocol_metadata) }
-}
-
-#[deprecated = "renamed to `NWContentContext::protocol_metadata`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_copy_protocol_metadata(
-    &self,
-    protocol: &NWProtocolDefinition,
-) -> Option<NWRetained<NWProtocolMetadata>> {
-    extern "C-unwind" {
-        fn nw_content_context_copy_protocol_metadata(
-            context: &NWContentContext,
-            protocol: &NWProtocolDefinition,
-        ) -> Option<NonNull<NWProtocolMetadata>>;
-    }
-    let ret = unsafe { nw_content_context_copy_protocol_metadata(self, protocol) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWContentContext::foreach_protocol_metadata`"]
-#[inline]
-pub extern "C-unwind" fn nw_content_context_foreach_protocol_metadata(
-    &self,
-    foreach_block: &block2::DynBlock<
-        dyn Fn(NonNull<NWProtocolDefinition>, NonNull<NWProtocolMetadata>),
-    >,
-) {
-    extern "C-unwind" {
-        fn nw_content_context_foreach_protocol_metadata(
-            context: &NWContentContext,
-            foreach_block: &block2::DynBlock<
-                dyn Fn(NonNull<NWProtocolDefinition>, NonNull<NWProtocolMetadata>),
-            >,
-        );
-    }
-    unsafe { nw_content_context_foreach_protocol_metadata(self, foreach_block) }
-}
-
-#[deprecated = "renamed to `NWConnection::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_create(
-    endpoint: &NWEndpoint,
-    parameters: &NWParameters,
-) -> NWRetained<NWConnection> {
-    extern "C-unwind" {
-        fn nw_connection_create(
-            endpoint: &NWEndpoint,
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWConnection>>;
-    }
-    let ret = unsafe { nw_connection_create(endpoint, parameters) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWConnection::endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_copy_endpoint(&self) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_connection_copy_endpoint(connection: &NWConnection) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_connection_copy_endpoint(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWConnection::parameters`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_copy_parameters(&self) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_connection_copy_parameters(
-            connection: &NWConnection,
-        ) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_connection_copy_parameters(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::set_state_changed_handler`"]
-    pub fn nw_connection_set_state_changed_handler(
-        connection: &NWConnection,
-        handler: nw_connection_state_changed_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::set_viability_changed_handler`"]
-    pub fn nw_connection_set_viability_changed_handler(
-        connection: &NWConnection,
-        handler: nw_connection_boolean_event_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::set_better_path_available_handler`"]
-    pub fn nw_connection_set_better_path_available_handler(
-        connection: &NWConnection,
-        handler: nw_connection_boolean_event_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::set_path_changed_handler`"]
-    pub fn nw_connection_set_path_changed_handler(
-        connection: &NWConnection,
-        handler: nw_connection_path_event_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWConnection::set_queue`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_set_queue(&self, queue: &DispatchQueue) {
-    extern "C-unwind" {
-        fn nw_connection_set_queue(connection: &NWConnection, queue: &DispatchQueue);
-    }
-    unsafe { nw_connection_set_queue(self, queue) }
-}
-
-#[deprecated = "renamed to `NWConnection::start`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_start(&self) {
-    extern "C-unwind" {
-        fn nw_connection_start(connection: &NWConnection);
-    }
-    unsafe { nw_connection_start(self) }
-}
-
-#[deprecated = "renamed to `NWConnection::restart`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_restart(&self) {
-    extern "C-unwind" {
-        fn nw_connection_restart(connection: &NWConnection);
-    }
-    unsafe { nw_connection_restart(self) }
-}
-
-#[deprecated = "renamed to `NWConnection::cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_connection_cancel(connection: &NWConnection);
-    }
-    unsafe { nw_connection_cancel(self) }
-}
-
-#[deprecated = "renamed to `NWConnection::force_cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_force_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_connection_force_cancel(connection: &NWConnection);
-    }
-    unsafe { nw_connection_force_cancel(self) }
-}
-
-#[deprecated = "renamed to `NWConnection::cancel_current_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_cancel_current_endpoint(&self) {
-    extern "C-unwind" {
-        fn nw_connection_cancel_current_endpoint(connection: &NWConnection);
-    }
-    unsafe { nw_connection_cancel_current_endpoint(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::receive`"]
-    pub fn nw_connection_receive(
-        connection: &NWConnection,
-        minimum_incomplete_length: u32,
-        maximum_length: u32,
-        completion: nw_connection_receive_completion_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::receive_message`"]
-    pub fn nw_connection_receive_message(
-        connection: &NWConnection,
-        completion: nw_connection_receive_completion_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::send`"]
-    pub fn nw_connection_send(
-        connection: &NWConnection,
-        content: Option<&DispatchData>,
-        context: &NWContentContext,
-        is_complete: bool,
-        completion: nw_connection_send_completion_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::batch`"]
-    pub fn nw_connection_batch(connection: &NWConnection, batch_block: dispatch_block_t);
-}
-
-#[deprecated = "renamed to `NWConnection::description`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_copy_description(&self) -> NonNull<c_char> {
-    extern "C-unwind" {
-        fn nw_connection_copy_description(connection: &NWConnection) -> Option<NonNull<c_char>>;
-    }
-    let ret = unsafe { nw_connection_copy_description(self) };
-    ret.expect("function was marked as returning non-null, but actually returned NULL")
-}
-
-#[deprecated = "renamed to `NWConnection::current_path`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_copy_current_path(&self) -> Option<NWRetained<NWPath>> {
-    extern "C-unwind" {
-        fn nw_connection_copy_current_path(connection: &NWConnection) -> Option<NonNull<NWPath>>;
-    }
-    let ret = unsafe { nw_connection_copy_current_path(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWConnection::protocol_metadata`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_copy_protocol_metadata(
-    &self,
-    definition: &NWProtocolDefinition,
-) -> Option<NWRetained<NWProtocolMetadata>> {
-    extern "C-unwind" {
-        fn nw_connection_copy_protocol_metadata(
-            connection: &NWConnection,
-            definition: &NWProtocolDefinition,
-        ) -> Option<NonNull<NWProtocolMetadata>>;
-    }
-    let ret = unsafe { nw_connection_copy_protocol_metadata(self, definition) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWConnection::maximum_datagram_size`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_get_maximum_datagram_size(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_connection_get_maximum_datagram_size(connection: &NWConnection) -> u32;
-    }
-    unsafe { nw_connection_get_maximum_datagram_size(self) }
-}
-
-#[deprecated = "renamed to `NWGroupDescriptor::new_multiplex`"]
-#[inline]
-pub extern "C-unwind" fn nw_group_descriptor_create_multiplex(
-    remote_endpoint: &NWEndpoint,
-) -> NWRetained<NWGroupDescriptor> {
-    extern "C-unwind" {
-        fn nw_group_descriptor_create_multiplex(
-            remote_endpoint: &NWEndpoint,
-        ) -> Option<NonNull<NWGroupDescriptor>>;
-    }
-    let ret = unsafe { nw_group_descriptor_create_multiplex(remote_endpoint) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWGroupDescriptor::new_multicast`"]
-#[inline]
-pub extern "C-unwind" fn nw_group_descriptor_create_multicast(
-    multicast_group: &NWEndpoint,
-) -> NWRetained<NWGroupDescriptor> {
-    extern "C-unwind" {
-        fn nw_group_descriptor_create_multicast(
-            multicast_group: &NWEndpoint,
-        ) -> Option<NonNull<NWGroupDescriptor>>;
-    }
-    let ret = unsafe { nw_group_descriptor_create_multicast(multicast_group) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWGroupDescriptor::add_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_group_descriptor_add_endpoint(&self, endpoint: &NWEndpoint) -> bool {
-    extern "C-unwind" {
-        fn nw_group_descriptor_add_endpoint(
-            descriptor: &NWGroupDescriptor,
-            endpoint: &NWEndpoint,
-        ) -> bool;
-    }
-    unsafe { nw_group_descriptor_add_endpoint(self, endpoint) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWGroupDescriptor::enumerate_endpoints`"]
-    pub fn nw_group_descriptor_enumerate_endpoints(
-        descriptor: &NWGroupDescriptor,
-        enumerate_block: nw_group_descriptor_enumerate_endpoints_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_create(
-    group_descriptor: &NWGroupDescriptor,
-    parameters: &NWParameters,
-) -> NWRetained<NWConnectionGroup> {
-    extern "C-unwind" {
-        fn nw_connection_group_create(
-            group_descriptor: &NWGroupDescriptor,
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWConnectionGroup>>;
-    }
-    let ret = unsafe { nw_connection_group_create(group_descriptor, parameters) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::descriptor`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_descriptor(
-    &self,
-) -> NWRetained<NWGroupDescriptor> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_descriptor(
-            group: &NWConnectionGroup,
-        ) -> Option<NonNull<NWGroupDescriptor>>;
-    }
-    let ret = unsafe { nw_connection_group_copy_descriptor(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::parameters`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_parameters(&self) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_parameters(
-            group: &NWConnectionGroup,
-        ) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_connection_group_copy_parameters(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::set_queue`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_set_queue(&self, queue: &DispatchQueue) {
-    extern "C-unwind" {
-        fn nw_connection_group_set_queue(group: &NWConnectionGroup, queue: &DispatchQueue);
-    }
-    unsafe { nw_connection_group_set_queue(self, queue) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnectionGroup::set_state_changed_handler`"]
-    pub fn nw_connection_group_set_state_changed_handler(
-        group: &NWConnectionGroup,
-        state_changed_handler: nw_connection_group_state_changed_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnectionGroup::set_receive_handler`"]
-    pub fn nw_connection_group_set_receive_handler(
-        group: &NWConnectionGroup,
-        maximum_message_size: u32,
-        reject_oversized_messages: bool,
-        receive_handler: nw_connection_group_receive_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::start`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_start(&self) {
-    extern "C-unwind" {
-        fn nw_connection_group_start(group: &NWConnectionGroup);
-    }
-    unsafe { nw_connection_group_start(self) }
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_connection_group_cancel(group: &NWConnectionGroup);
-    }
-    unsafe { nw_connection_group_cancel(self) }
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::remote_endpoint_for_message`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_remote_endpoint_for_message(
-    &self,
-    context: &NWContentContext,
-) -> Option<NWRetained<NWEndpoint>> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_remote_endpoint_for_message(
-            group: &NWConnectionGroup,
-            context: &NWContentContext,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_connection_group_copy_remote_endpoint_for_message(self, context) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::local_endpoint_for_message`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_local_endpoint_for_message(
-    &self,
-    context: &NWContentContext,
-) -> Option<NWRetained<NWEndpoint>> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_local_endpoint_for_message(
-            group: &NWConnectionGroup,
-            context: &NWContentContext,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_connection_group_copy_local_endpoint_for_message(self, context) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::path_for_message`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_path_for_message(
-    &self,
-    context: &NWContentContext,
-) -> Option<NWRetained<NWPath>> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_path_for_message(
-            group: &NWConnectionGroup,
-            context: &NWContentContext,
-        ) -> Option<NonNull<NWPath>>;
-    }
-    let ret = unsafe { nw_connection_group_copy_path_for_message(self, context) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::protocol_metadata_for_message`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_protocol_metadata_for_message(
-    &self,
-    context: &NWContentContext,
-    definition: &NWProtocolDefinition,
-) -> Option<NWRetained<NWProtocolMetadata>> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_protocol_metadata_for_message(
-            group: &NWConnectionGroup,
-            context: &NWContentContext,
-            definition: &NWProtocolDefinition,
-        ) -> Option<NonNull<NWProtocolMetadata>>;
-    }
-    let ret = unsafe {
-        nw_connection_group_copy_protocol_metadata_for_message(self, context, definition)
-    };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::extract_connection_for_message`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_extract_connection_for_message(
-    &self,
-    context: &NWContentContext,
-) -> Option<NWRetained<NWConnection>> {
-    extern "C-unwind" {
-        fn nw_connection_group_extract_connection_for_message(
-            group: &NWConnectionGroup,
-            context: &NWContentContext,
-        ) -> Option<NonNull<NWConnection>>;
-    }
-    let ret = unsafe { nw_connection_group_extract_connection_for_message(self, context) };
-    ret.map(|ret| unsafe { NWRetained::retain(ret) })
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::reply`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_reply(
-    &self,
-    inbound_message: &NWContentContext,
-    outbound_message: &NWContentContext,
-    content: Option<&DispatchData>,
-) {
-    extern "C-unwind" {
-        fn nw_connection_group_reply(
-            group: &NWConnectionGroup,
-            inbound_message: &NWContentContext,
-            outbound_message: &NWContentContext,
-            content: Option<&DispatchData>,
-        );
-    }
-    unsafe { nw_connection_group_reply(self, inbound_message, outbound_message, content) }
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::extract_connection`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_extract_connection(
-    &self,
-    endpoint: Option<&NWEndpoint>,
-    protocol_options: Option<&NWProtocolOptions>,
-) -> Option<NWRetained<NWConnection>> {
-    extern "C-unwind" {
-        fn nw_connection_group_extract_connection(
-            group: &NWConnectionGroup,
-            endpoint: Option<&NWEndpoint>,
-            protocol_options: Option<&NWProtocolOptions>,
-        ) -> Option<NonNull<NWConnection>>;
-    }
-    let ret = unsafe { nw_connection_group_extract_connection(self, endpoint, protocol_options) };
-    ret.map(|ret| unsafe { NWRetained::retain(ret) })
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::reinsert_extracted_connection`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_reinsert_extracted_connection(
-    &self,
-    connection: &NWConnection,
-) -> bool {
-    extern "C-unwind" {
-        fn nw_connection_group_reinsert_extracted_connection(
-            group: &NWConnectionGroup,
-            connection: &NWConnection,
-        ) -> bool;
-    }
-    unsafe { nw_connection_group_reinsert_extracted_connection(self, connection) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnectionGroup::send_message`"]
-    pub fn nw_connection_group_send_message(
-        group: &NWConnectionGroup,
-        content: Option<&DispatchData>,
-        endpoint: Option<&NWEndpoint>,
-        context: &NWContentContext,
-        completion: nw_connection_group_send_completion_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnectionGroup::set_new_connection_handler`"]
-    pub fn nw_connection_group_set_new_connection_handler(
-        group: &NWConnectionGroup,
-        new_connection_handler: nw_connection_group_new_connection_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWConnectionGroup::protocol_metadata`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_group_copy_protocol_metadata(
-    &self,
-    definition: &NWProtocolDefinition,
-) -> Option<NWRetained<NWProtocolMetadata>> {
-    extern "C-unwind" {
-        fn nw_connection_group_copy_protocol_metadata(
-            group: &NWConnectionGroup,
-            definition: &NWProtocolDefinition,
-        ) -> Option<NonNull<NWProtocolMetadata>>;
-    }
-    let ret = unsafe { nw_connection_group_copy_protocol_metadata(self, definition) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWConnection::access_establishment_report`"]
-    pub fn nw_connection_access_establishment_report(
-        connection: &NWConnection,
-        queue: &DispatchQueue,
-        access_block: nw_establishment_report_access_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWEstablishmentReport::duration_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_establishment_report_get_duration_milliseconds(&self) -> u64 {
-    extern "C-unwind" {
-        fn nw_establishment_report_get_duration_milliseconds(report: &NWEstablishmentReport)
-            -> u64;
-    }
-    unsafe { nw_establishment_report_get_duration_milliseconds(self) }
-}
-
-#[deprecated = "renamed to `NWEstablishmentReport::attempt_started_after_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_establishment_report_get_attempt_started_after_milliseconds(
-    &self,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_establishment_report_get_attempt_started_after_milliseconds(
-            report: &NWEstablishmentReport,
-        ) -> u64;
-    }
-    unsafe { nw_establishment_report_get_attempt_started_after_milliseconds(self) }
-}
-
-#[deprecated = "renamed to `NWEstablishmentReport::previous_attempt_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_establishment_report_get_previous_attempt_count(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_establishment_report_get_previous_attempt_count(
-            report: &NWEstablishmentReport,
-        ) -> u32;
-    }
-    unsafe { nw_establishment_report_get_previous_attempt_count(self) }
-}
-
-#[deprecated = "renamed to `NWEstablishmentReport::used_proxy`"]
-#[inline]
-pub extern "C-unwind" fn nw_establishment_report_get_used_proxy(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_establishment_report_get_used_proxy(report: &NWEstablishmentReport) -> bool;
-    }
-    unsafe { nw_establishment_report_get_used_proxy(self) }
-}
-
-#[deprecated = "renamed to `NWEstablishmentReport::proxy_configured`"]
-#[inline]
-pub extern "C-unwind" fn nw_establishment_report_get_proxy_configured(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_establishment_report_get_proxy_configured(report: &NWEstablishmentReport) -> bool;
-    }
-    unsafe { nw_establishment_report_get_proxy_configured(self) }
-}
-
-#[deprecated = "renamed to `NWEstablishmentReport::proxy_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_establishment_report_copy_proxy_endpoint(
-    &self,
-) -> Option<NWRetained<NWEndpoint>> {
-    extern "C-unwind" {
-        fn nw_establishment_report_copy_proxy_endpoint(
-            report: &NWEstablishmentReport,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_establishment_report_copy_proxy_endpoint(self) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWResolutionReport::source`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolution_report_get_source(&self) -> nw_report_resolution_source_t {
-    extern "C-unwind" {
-        fn nw_resolution_report_get_source(
-            resolution_report: &NWResolutionReport,
-        ) -> nw_report_resolution_source_t;
-    }
-    unsafe { nw_resolution_report_get_source(self) }
-}
-
-#[deprecated = "renamed to `NWResolutionReport::milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolution_report_get_milliseconds(&self) -> u64 {
-    extern "C-unwind" {
-        fn nw_resolution_report_get_milliseconds(resolution_report: &NWResolutionReport) -> u64;
-    }
-    unsafe { nw_resolution_report_get_milliseconds(self) }
-}
-
-#[deprecated = "renamed to `NWResolutionReport::endpoint_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolution_report_get_endpoint_count(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_resolution_report_get_endpoint_count(resolution_report: &NWResolutionReport) -> u32;
-    }
-    unsafe { nw_resolution_report_get_endpoint_count(self) }
-}
-
-#[deprecated = "renamed to `NWResolutionReport::successful_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolution_report_copy_successful_endpoint(
-    &self,
-) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_resolution_report_copy_successful_endpoint(
-            resolution_report: &NWResolutionReport,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_resolution_report_copy_successful_endpoint(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWResolutionReport::preferred_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolution_report_copy_preferred_endpoint(
-    &self,
-) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_resolution_report_copy_preferred_endpoint(
-            resolution_report: &NWResolutionReport,
-        ) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_resolution_report_copy_preferred_endpoint(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWResolutionReport::protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_resolution_report_get_protocol(
-    &self,
-) -> nw_report_resolution_protocol_t {
-    extern "C-unwind" {
-        fn nw_resolution_report_get_protocol(
-            resolution_report: &NWResolutionReport,
-        ) -> nw_report_resolution_protocol_t;
-    }
-    unsafe { nw_resolution_report_get_protocol(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEstablishmentReport::enumerate_resolutions`"]
-    pub fn nw_establishment_report_enumerate_resolutions(
-        report: &NWEstablishmentReport,
-        enumerate_block: nw_report_resolution_enumerator_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEstablishmentReport::enumerate_resolution_reports`"]
-    pub fn nw_establishment_report_enumerate_resolution_reports(
-        report: &NWEstablishmentReport,
-        enumerate_block: nw_report_resolution_report_enumerator_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEstablishmentReport::enumerate_protocols`"]
-    pub fn nw_establishment_report_enumerate_protocols(
-        report: &NWEstablishmentReport,
-        enumerate_block: nw_report_protocol_enumerator_t,
-    );
-}
-
-#[deprecated = "renamed to `NWConnection::new_data_transfer_report`"]
-#[inline]
-pub extern "C-unwind" fn nw_connection_create_new_data_transfer_report(
-    &self,
-) -> NWRetained<NWDataTransferReport> {
-    extern "C-unwind" {
-        fn nw_connection_create_new_data_transfer_report(
-            connection: &NWConnection,
-        ) -> Option<NonNull<NWDataTransferReport>>;
-    }
-    let ret = unsafe { nw_connection_create_new_data_transfer_report(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::state`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_state(
-    &self,
-) -> nw_data_transfer_report_state_t {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_state(
-            report: &NWDataTransferReport,
-        ) -> nw_data_transfer_report_state_t;
-    }
-    unsafe { nw_data_transfer_report_get_state(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWDataTransferReport::collect`"]
-    pub fn nw_data_transfer_report_collect(
-        report: &NWDataTransferReport,
-        queue: &DispatchQueue,
-        collect_block: nw_data_transfer_report_collect_block_t,
-    );
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::duration_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_duration_milliseconds(&self) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_duration_milliseconds(report: &NWDataTransferReport) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_duration_milliseconds(self) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::path_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_path_count(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_path_count(report: &NWDataTransferReport) -> u32;
-    }
-    unsafe { nw_data_transfer_report_get_path_count(self) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::received_ip_packet_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_received_ip_packet_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_received_ip_packet_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_received_ip_packet_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::sent_ip_packet_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_sent_ip_packet_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_sent_ip_packet_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_sent_ip_packet_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::received_transport_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_received_transport_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_received_transport_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_received_transport_byte_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::received_transport_duplicate_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_received_transport_duplicate_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_received_transport_duplicate_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_received_transport_duplicate_byte_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::received_transport_out_of_order_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_received_transport_out_of_order_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_received_transport_out_of_order_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe {
-        nw_data_transfer_report_get_received_transport_out_of_order_byte_count(self, path_index)
-    }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::sent_transport_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_sent_transport_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_sent_transport_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_sent_transport_byte_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::sent_transport_retransmitted_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_sent_transport_retransmitted_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_sent_transport_retransmitted_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_sent_transport_retransmitted_byte_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::transport_smoothed_rtt_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_transport_smoothed_rtt_milliseconds(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_transport_smoothed_rtt_milliseconds(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_transport_smoothed_rtt_milliseconds(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::transport_minimum_rtt_milliseconds`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_transport_minimum_rtt_milliseconds(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_transport_minimum_rtt_milliseconds(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_transport_minimum_rtt_milliseconds(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::transport_rtt_variance`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_transport_rtt_variance(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_transport_rtt_variance(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_transport_rtt_variance(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::received_application_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_received_application_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_received_application_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_received_application_byte_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::sent_application_byte_count`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_sent_application_byte_count(
-    &self,
-    path_index: u32,
-) -> u64 {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_sent_application_byte_count(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> u64;
-    }
-    unsafe { nw_data_transfer_report_get_sent_application_byte_count(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::path_interface`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_copy_path_interface(
-    &self,
-    path_index: u32,
-) -> NWRetained<NWInterface> {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_copy_path_interface(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> Option<NonNull<NWInterface>>;
-    }
-    let ret = unsafe { nw_data_transfer_report_copy_path_interface(self, path_index) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWDataTransferReport::path_radio_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_data_transfer_report_get_path_radio_type(
-    &self,
-    path_index: u32,
-) -> nw_interface_radio_type_t {
-    extern "C-unwind" {
-        fn nw_data_transfer_report_get_path_radio_type(
-            report: &NWDataTransferReport,
-            path_index: u32,
-        ) -> nw_interface_radio_type_t;
-    }
-    unsafe { nw_data_transfer_report_get_path_radio_type(self, path_index) }
-}
-
-#[deprecated = "renamed to `NWEthernetChannel::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_ethernet_channel_create(
-    ether_type: u16,
-    interface: &NWInterface,
-) -> NWRetained<NWEthernetChannel> {
-    extern "C-unwind" {
-        fn nw_ethernet_channel_create(
-            ether_type: u16,
-            interface: &NWInterface,
-        ) -> Option<NonNull<NWEthernetChannel>>;
-    }
-    let ret = unsafe { nw_ethernet_channel_create(ether_type, interface) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWEthernetChannel::with_parameters`"]
-#[inline]
-pub extern "C-unwind" fn nw_ethernet_channel_create_with_parameters(
-    ether_type: u16,
-    interface: &NWInterface,
-    parameters: &NWParameters,
-) -> NWRetained<NWEthernetChannel> {
-    extern "C-unwind" {
-        fn nw_ethernet_channel_create_with_parameters(
-            ether_type: u16,
-            interface: &NWInterface,
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWEthernetChannel>>;
-    }
-    let ret =
-        unsafe { nw_ethernet_channel_create_with_parameters(ether_type, interface, parameters) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEthernetChannel::set_state_changed_handler`"]
-    pub fn nw_ethernet_channel_set_state_changed_handler(
-        ethernet_channel: &NWEthernetChannel,
-        handler: nw_ethernet_channel_state_changed_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWEthernetChannel::set_queue`"]
-#[inline]
-pub extern "C-unwind" fn nw_ethernet_channel_set_queue(&self, queue: &DispatchQueue) {
-    extern "C-unwind" {
-        fn nw_ethernet_channel_set_queue(
-            ethernet_channel: &NWEthernetChannel,
-            queue: &DispatchQueue,
-        );
-    }
-    unsafe { nw_ethernet_channel_set_queue(self, queue) }
-}
-
-#[deprecated = "renamed to `NWEthernetChannel::maximum_payload_size`"]
-#[inline]
-pub extern "C-unwind" fn nw_ethernet_channel_get_maximum_payload_size(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_ethernet_channel_get_maximum_payload_size(
-            ethernet_channel: &NWEthernetChannel,
-        ) -> u32;
-    }
-    unsafe { nw_ethernet_channel_get_maximum_payload_size(self) }
-}
-
-#[deprecated = "renamed to `NWEthernetChannel::start`"]
-#[inline]
-pub extern "C-unwind" fn nw_ethernet_channel_start(&self) {
-    extern "C-unwind" {
-        fn nw_ethernet_channel_start(ethernet_channel: &NWEthernetChannel);
-    }
-    unsafe { nw_ethernet_channel_start(self) }
-}
-
-#[deprecated = "renamed to `NWEthernetChannel::cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_ethernet_channel_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_ethernet_channel_cancel(ethernet_channel: &NWEthernetChannel);
-    }
-    unsafe { nw_ethernet_channel_cancel(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEthernetChannel::set_receive_handler`"]
-    pub fn nw_ethernet_channel_set_receive_handler(
-        ethernet_channel: &NWEthernetChannel,
-        handler: nw_ethernet_channel_receive_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWEthernetChannel::send`"]
-    pub fn nw_ethernet_channel_send(
-        ethernet_channel: &NWEthernetChannel,
-        content: &DispatchData,
-        vlan_tag: u16,
-        remote_address: nw_ethernet_address_t,
-        completion: nw_ethernet_channel_send_completion_t,
-    );
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_framer_message`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_framer_message(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_framer_message(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_framer_message(self) }
-}
-
-#[deprecated = "renamed to `NWFramer::message_create`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_message_create(&self) -> NWRetained<NWFramerMessage> {
-    extern "C-unwind" {
-        fn nw_framer_message_create(framer: &NWFramer) -> Option<NonNull<NWFramerMessage>>;
-    }
-    let ret = unsafe { nw_framer_message_create(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::set_input_handler`"]
-    pub fn nw_framer_set_input_handler(framer: &NWFramer, input_handler: nw_framer_input_handler_t);
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::set_output_handler`"]
-    pub fn nw_framer_set_output_handler(
-        framer: &NWFramer,
-        output_handler: nw_framer_output_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::set_wakeup_handler`"]
-    pub fn nw_framer_set_wakeup_handler(
-        framer: &NWFramer,
-        wakeup_handler: nw_framer_wakeup_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::set_stop_handler`"]
-    pub fn nw_framer_set_stop_handler(framer: &NWFramer, stop_handler: nw_framer_stop_handler_t);
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::set_cleanup_handler`"]
-    pub fn nw_framer_set_cleanup_handler(
-        framer: &NWFramer,
-        cleanup_handler: nw_framer_cleanup_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWFramer::mark_ready`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_mark_ready(&self) {
-    extern "C-unwind" {
-        fn nw_framer_mark_ready(framer: &NWFramer);
-    }
-    unsafe { nw_framer_mark_ready(self) }
-}
-
-#[deprecated = "renamed to `NWFramer::prepend_application_protocol`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_prepend_application_protocol(
-    &self,
-    protocol_options: &NWProtocolOptions,
-) -> bool {
-    extern "C-unwind" {
-        fn nw_framer_prepend_application_protocol(
-            framer: &NWFramer,
-            protocol_options: &NWProtocolOptions,
-        ) -> bool;
-    }
-    unsafe { nw_framer_prepend_application_protocol(self, protocol_options) }
-}
-
-#[deprecated = "renamed to `NWFramer::mark_failed_with_error`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_mark_failed_with_error(&self, error_code: c_int) {
-    extern "C-unwind" {
-        fn nw_framer_mark_failed_with_error(framer: &NWFramer, error_code: c_int);
-    }
-    unsafe { nw_framer_mark_failed_with_error(self, error_code) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::parse_input`"]
-    pub fn nw_framer_parse_input(
-        framer: &NWFramer,
-        minimum_incomplete_length: usize,
-        maximum_length: usize,
-        temp_buffer: *mut u8,
-        parse: nw_framer_parse_completion_t,
-    ) -> bool;
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::deliver_input`"]
-    pub fn nw_framer_deliver_input(
-        framer: &NWFramer,
-        input_buffer: NonNull<u8>,
-        input_length: usize,
-        message: &NWFramerMessage,
-        is_complete: bool,
-    );
-}
-
-#[deprecated = "renamed to `NWFramer::deliver_input_no_copy`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_deliver_input_no_copy(
-    &self,
-    input_length: usize,
-    message: &NWFramerMessage,
-    is_complete: bool,
-) -> bool {
-    extern "C-unwind" {
-        fn nw_framer_deliver_input_no_copy(
-            framer: &NWFramer,
-            input_length: usize,
-            message: &NWFramerMessage,
-            is_complete: bool,
-        ) -> bool;
-    }
-    unsafe { nw_framer_deliver_input_no_copy(self, input_length, message, is_complete) }
-}
-
-#[deprecated = "renamed to `NWFramer::pass_through_input`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_pass_through_input(&self) {
-    extern "C-unwind" {
-        fn nw_framer_pass_through_input(framer: &NWFramer);
-    }
-    unsafe { nw_framer_pass_through_input(self) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::parse_output`"]
-    pub fn nw_framer_parse_output(
-        framer: &NWFramer,
-        minimum_incomplete_length: usize,
-        maximum_length: usize,
-        temp_buffer: *mut u8,
-        parse: nw_framer_parse_completion_t,
-    ) -> bool;
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::write_output`"]
-    pub fn nw_framer_write_output(
-        framer: &NWFramer,
-        output_buffer: NonNull<u8>,
-        output_length: usize,
-    );
-}
-
-#[deprecated = "renamed to `NWFramer::write_output_data`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_write_output_data(&self, output_data: &DispatchData) {
-    extern "C-unwind" {
-        fn nw_framer_write_output_data(framer: &NWFramer, output_data: &DispatchData);
-    }
-    unsafe { nw_framer_write_output_data(self, output_data) }
-}
-
-#[deprecated = "renamed to `NWFramer::write_output_no_copy`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_write_output_no_copy(&self, output_length: usize) -> bool {
-    extern "C-unwind" {
-        fn nw_framer_write_output_no_copy(framer: &NWFramer, output_length: usize) -> bool;
-    }
-    unsafe { nw_framer_write_output_no_copy(self, output_length) }
-}
-
-#[deprecated = "renamed to `NWFramer::pass_through_output`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_pass_through_output(&self) {
-    extern "C-unwind" {
-        fn nw_framer_pass_through_output(framer: &NWFramer);
-    }
-    unsafe { nw_framer_pass_through_output(self) }
-}
-
-#[deprecated = "renamed to `NWFramer::schedule_wakeup`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_schedule_wakeup(&self, milliseconds: u64) {
-    extern "C-unwind" {
-        fn nw_framer_schedule_wakeup(framer: &NWFramer, milliseconds: u64);
-    }
-    unsafe { nw_framer_schedule_wakeup(self, milliseconds) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWFramer::async`"]
-    pub fn nw_framer_async(framer: &NWFramer, async_block: nw_framer_block_t);
-}
-
-#[deprecated = "renamed to `NWFramer::remote_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_copy_remote_endpoint(&self) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_framer_copy_remote_endpoint(framer: &NWFramer) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_framer_copy_remote_endpoint(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWFramer::local_endpoint`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_copy_local_endpoint(&self) -> NWRetained<NWEndpoint> {
-    extern "C-unwind" {
-        fn nw_framer_copy_local_endpoint(framer: &NWFramer) -> Option<NonNull<NWEndpoint>>;
-    }
-    let ret = unsafe { nw_framer_copy_local_endpoint(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWFramer::parameters`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_copy_parameters(&self) -> NWRetained<NWParameters> {
-    extern "C-unwind" {
-        fn nw_framer_copy_parameters(framer: &NWFramer) -> Option<NonNull<NWParameters>>;
-    }
-    let ret = unsafe { nw_framer_copy_parameters(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWFramer::options`"]
-#[inline]
-pub extern "C-unwind" fn nw_framer_copy_options(&self) -> NWRetained<NWProtocolOptions> {
-    extern "C-unwind" {
-        fn nw_framer_copy_options(framer: &NWFramer) -> Option<NonNull<NWProtocolOptions>>;
-    }
-    let ret = unsafe { nw_framer_copy_options(self) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_ip`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_ip(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_ip(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_ip(self) }
-}
-
-#[deprecated = "renamed to `NWListener::with_port`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_listener_create_with_port(
-    port: NonNull<c_char>,
-    parameters: &NWParameters,
-) -> Option<NWRetained<NWListener>> {
-    extern "C-unwind" {
-        fn nw_listener_create_with_port(
-            port: NonNull<c_char>,
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWListener>>;
-    }
-    let ret = unsafe { nw_listener_create_with_port(port, parameters) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWListener::with_launchd_key`"]
-#[inline]
-pub unsafe extern "C-unwind" fn nw_listener_create_with_launchd_key(
-    parameters: &NWParameters,
-    launchd_key: NonNull<c_char>,
-) -> NWRetained<NWListener> {
-    extern "C-unwind" {
-        fn nw_listener_create_with_launchd_key(
-            parameters: &NWParameters,
-            launchd_key: NonNull<c_char>,
-        ) -> Option<NonNull<NWListener>>;
-    }
-    let ret = unsafe { nw_listener_create_with_launchd_key(parameters, launchd_key) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWListener::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_create(
-    parameters: &NWParameters,
-) -> Option<NWRetained<NWListener>> {
-    extern "C-unwind" {
-        fn nw_listener_create(parameters: &NWParameters) -> Option<NonNull<NWListener>>;
-    }
-    let ret = unsafe { nw_listener_create(parameters) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWListener::with_connection`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_create_with_connection(
-    connection: &NWConnection,
-    parameters: &NWParameters,
-) -> Option<NWRetained<NWListener>> {
-    extern "C-unwind" {
-        fn nw_listener_create_with_connection(
-            connection: &NWConnection,
-            parameters: &NWParameters,
-        ) -> Option<NonNull<NWListener>>;
-    }
-    let ret = unsafe { nw_listener_create_with_connection(connection, parameters) };
-    ret.map(|ret| unsafe { NWRetained::from_raw(ret) })
-}
-
-#[deprecated = "renamed to `NWListener::set_queue`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_set_queue(&self, queue: &DispatchQueue) {
-    extern "C-unwind" {
-        fn nw_listener_set_queue(listener: &NWListener, queue: &DispatchQueue);
-    }
-    unsafe { nw_listener_set_queue(self, queue) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWListener::set_state_changed_handler`"]
-    pub fn nw_listener_set_state_changed_handler(
-        listener: &NWListener,
-        handler: nw_listener_state_changed_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWListener::set_new_connection_handler`"]
-    pub fn nw_listener_set_new_connection_handler(
-        listener: &NWListener,
-        handler: nw_listener_new_connection_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWListener::set_new_connection_group_handler`"]
-    pub fn nw_listener_set_new_connection_group_handler(
-        listener: &NWListener,
-        handler: nw_listener_new_connection_group_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWListener::new_connection_limit`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_get_new_connection_limit(&self) -> u32 {
-    extern "C-unwind" {
-        fn nw_listener_get_new_connection_limit(listener: &NWListener) -> u32;
-    }
-    unsafe { nw_listener_get_new_connection_limit(self) }
-}
-
-#[deprecated = "renamed to `NWListener::set_new_connection_limit`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_set_new_connection_limit(&self, new_connection_limit: u32) {
-    extern "C-unwind" {
-        fn nw_listener_set_new_connection_limit(listener: &NWListener, new_connection_limit: u32);
-    }
-    unsafe { nw_listener_set_new_connection_limit(self, new_connection_limit) }
-}
-
-#[deprecated = "renamed to `NWListener::set_advertise_descriptor`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_set_advertise_descriptor(
-    &self,
-    advertise_descriptor: Option<&NWAdvertiseDescriptor>,
-) {
-    extern "C-unwind" {
-        fn nw_listener_set_advertise_descriptor(
-            listener: &NWListener,
-            advertise_descriptor: Option<&NWAdvertiseDescriptor>,
-        );
-    }
-    unsafe { nw_listener_set_advertise_descriptor(self, advertise_descriptor) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWListener::set_advertised_endpoint_changed_handler`"]
-    pub fn nw_listener_set_advertised_endpoint_changed_handler(
-        listener: &NWListener,
-        handler: nw_listener_advertised_endpoint_changed_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWListener::port`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_get_port(&self) -> u16 {
-    extern "C-unwind" {
-        fn nw_listener_get_port(listener: &NWListener) -> u16;
-    }
-    unsafe { nw_listener_get_port(self) }
-}
-
-#[deprecated = "renamed to `NWListener::start`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_start(&self) {
-    extern "C-unwind" {
-        fn nw_listener_start(listener: &NWListener);
-    }
-    unsafe { nw_listener_start(self) }
-}
-
-#[deprecated = "renamed to `NWListener::cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_listener_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_listener_cancel(listener: &NWListener);
-    }
-    unsafe { nw_listener_cancel(self) }
-}
-
-#[deprecated = "renamed to `NWPathMonitor::new`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_create() -> NWRetained<NWPathMonitor> {
-    extern "C-unwind" {
-        fn nw_path_monitor_create() -> Option<NonNull<NWPathMonitor>>;
-    }
-    let ret = unsafe { nw_path_monitor_create() };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWPathMonitor::with_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_create_with_type(
-    required_interface_type: nw_interface_type_t,
-) -> NWRetained<NWPathMonitor> {
-    extern "C-unwind" {
-        fn nw_path_monitor_create_with_type(
-            required_interface_type: nw_interface_type_t,
-        ) -> Option<NonNull<NWPathMonitor>>;
-    }
-    let ret = unsafe { nw_path_monitor_create_with_type(required_interface_type) };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWPathMonitor::new_for_ethernet_channel`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_create_for_ethernet_channel() -> NWRetained<NWPathMonitor>
-{
-    extern "C-unwind" {
-        fn nw_path_monitor_create_for_ethernet_channel() -> Option<NonNull<NWPathMonitor>>;
-    }
-    let ret = unsafe { nw_path_monitor_create_for_ethernet_channel() };
-    let ret = ret.expect("function was marked as returning non-null, but actually returned NULL");
-    unsafe { NWRetained::from_raw(ret) }
-}
-
-#[deprecated = "renamed to `NWPathMonitor::prohibit_interface_type`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_prohibit_interface_type(
-    &self,
-    interface_type: nw_interface_type_t,
-) {
-    extern "C-unwind" {
-        fn nw_path_monitor_prohibit_interface_type(
-            monitor: &NWPathMonitor,
-            interface_type: nw_interface_type_t,
-        );
-    }
-    unsafe { nw_path_monitor_prohibit_interface_type(self, interface_type) }
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWPathMonitor::set_cancel_handler`"]
-    pub fn nw_path_monitor_set_cancel_handler(
-        monitor: &NWPathMonitor,
-        cancel_handler: nw_path_monitor_cancel_handler_t,
-    );
-}
-
-extern "C-unwind" {
-    #[deprecated = "renamed to `NWPathMonitor::set_update_handler`"]
-    pub fn nw_path_monitor_set_update_handler(
-        monitor: &NWPathMonitor,
-        update_handler: nw_path_monitor_update_handler_t,
-    );
-}
-
-#[deprecated = "renamed to `NWPathMonitor::set_queue`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_set_queue(&self, queue: &DispatchQueue) {
-    extern "C-unwind" {
-        fn nw_path_monitor_set_queue(monitor: &NWPathMonitor, queue: &DispatchQueue);
-    }
-    unsafe { nw_path_monitor_set_queue(self, queue) }
-}
-
-#[deprecated = "renamed to `NWPathMonitor::start`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_start(&self) {
-    extern "C-unwind" {
-        fn nw_path_monitor_start(monitor: &NWPathMonitor);
-    }
-    unsafe { nw_path_monitor_start(self) }
-}
-
-#[deprecated = "renamed to `NWPathMonitor::cancel`"]
-#[inline]
-pub extern "C-unwind" fn nw_path_monitor_cancel(&self) {
-    extern "C-unwind" {
-        fn nw_path_monitor_cancel(monitor: &NWPathMonitor);
-    }
-    unsafe { nw_path_monitor_cancel(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolOptions::is_quic`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_options_is_quic(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_options_is_quic(options: &NWProtocolOptions) -> bool;
-    }
-    unsafe { nw_protocol_options_is_quic(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_quic`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_quic(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_quic(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_quic(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_tcp`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_tcp(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_tcp(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_tcp(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_tls`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_tls(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_tls(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_tls(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_udp`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_udp(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_udp(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_udp(self) }
-}
-
-#[deprecated = "renamed to `NWProtocolMetadata::is_ws`"]
-#[inline]
-pub extern "C-unwind" fn nw_protocol_metadata_is_ws(&self) -> bool {
-    extern "C-unwind" {
-        fn nw_protocol_metadata_is_ws(metadata: &NWProtocolMetadata) -> bool;
-    }
-    unsafe { nw_protocol_metadata_is_ws(self) }
 }
